@@ -1,0 +1,9 @@
+{ "name": "myintervals"
+, "version": "0.0.1"
+, "main" : "./intervals"
+, "author": "François de Metz <francois@2metz.fr>"
+, "licenses": [{ "type": "BSD"}]
+, "dependencies": {
+    "spore": ""
+}
+}
