@@ -7,3 +7,7 @@ NodeJS wrapper of [MyIntervals](http://www.myintervals.com) [API](http://www.myi
 ## Dependencies
 
 * node-spore
+
+## Get Spore description
+
+    var desc = require('myinvervals').description;
