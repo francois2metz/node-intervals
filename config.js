@@ -5,7 +5,7 @@ var fs = require('fs')
 function path() {
     return process.env.HOME + '/.intervals';
 }
-exports.__defineSetter__('path', path);
+exports.__defineGetter__('path', path);
 
 exports.read = function(callback) {
     fs.readFile(path(), function(err, result) {

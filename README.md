@@ -4,9 +4,16 @@ NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myint
 
 *Work in progress.*
 
+## Install
+
+    npm install intervals
+
 ## Dependencies
 
 * node-spore
+* node-optimist
+* yaml
+* futures
 
 ## Command line usage
 

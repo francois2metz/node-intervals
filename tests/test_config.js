@@ -39,6 +39,9 @@ vows.describe('Intervals config').addBatch({
                     assert.isNull(err);
                 }
             }
+        },
+        'config path can be retrieved': function() {
+            assert.equal(config.path, process.cwd() + '/.intervals');
         }
     }
 }).addBatch({
