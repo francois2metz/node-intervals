@@ -1,9 +1,15 @@
-{ "name": "myintervals"
+{ "name": "intervals"
 , "version": "0.0.1"
 , "main" : "./intervals"
+, "bin": {
+    "intervals": "./bin/intervals.js"
+}
 , "author": "François de Metz <francois@2metz.fr>"
 , "licenses": [{ "type": "BSD"}]
 , "dependencies": {
-    "spore": ""
+    "spore": "",
+    "optimist" : "",
+    "yaml" : "",
+    "futures" : ""
 }
 }

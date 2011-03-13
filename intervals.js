@@ -1,3 +1,7 @@
+var spore = require('spore')
+  , futures = require('futures')
+;
+
 /**
  * Set Accept header
  */
@@ -7,84 +11,122 @@ function accept(accept) {
         next();
     }
 }
+/**
+ * Set Content-type header
+ */
+function contentType(contentType) {
+    return function(method, request, next) {
+        request.headers['Content-type'] = contentType;
+        next();
+    };
+}
 
-var sporeDesc = exports.description = {
-    base_url : 'https://api.myintervals.com',
-    formats : ["json", "xml"],
-    authentication: true,
-    unattended_params: false,
+var sporeDesc = exports.description = require('./description');
 
-    methods: {
-        me: {
-            path: '/me',
-            method: 'GET'
-        },
-        client: {
-            path: '/client/',
-            method: 'GET',
-            optional_params: ['active', 'search', 'projectsonly',
-                              'offset', 'limit']
-        },
-        project: {
-            path: '/project/',
-            method: 'GET',
-            // NOTE: personid parameter seem buggy
-            optional_params: ['clientid', 'managerid', 'name',
-                              'datestart', 'dateend', 'search',
-                              'active', 'billable', 'personid',
-                              'offset', 'limit']
-        },
-        worktype: {
-            path: '/worktype/',
-            method: 'GET',
-            optional_params: ['active', 'offset', 'limit']
-        },
-        project_worktype: {
-            path: '/projectworktype/',
-            method: 'GET',
-            required_params: ['projectid'],
-            // NOTE: personid parameter seem buggy
-            optional_params: ['active', 'personid', 'offset', 'limit']
-        },
-        project_module: {
-            path: '/projectmodule/',
-            method: 'GET',
-            required_params: ['projectid'],
-            // NOTE: personid parameter seem buggy
-            optional_params: ['active', 'personid',
-                              'offset', 'limit']
-        },
-        timer: {
-            path: '/timer',
-            method: 'GET'
-        },
-        time: {
-            path: '/time/',
-            method: 'GET',
-            optional_params: ['activeonly', 'moduleid', 'taskid', 'worktypeid',
-                              'personid', 'clientid', 'projectid', 'milestoneid',
-                              'date', 'datebegin', 'dateend', 'billable', 'sortfield',
-                              'sortdir', 'offset', 'limit']
-        },
-        add_time: {
-            path: '/time/',
-            method: 'POST',
-            headers: {'Content-type': 'application/json'}
-//            required_params: ['worktypeid', 'personid', 'date',
-//                              'time', 'billable'],
-//            optional_params: ['projectid', 'moduleid', 'taskid',
-//                              'description', 'datemodified']
-        }
+/**
+ * Read stdin
+ */
+var readInput = exports.readInput = function(callback) {
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', function (chunk) {
+        process.stdin.pause(); // pause stdin after input
+        process.stdin.removeAllListeners('data');
+        process.stdin.removeAllListeners('end');
+        callback(chunk.trim());
+    });
+    process.stdin.on('end', function () {});
+}
+/**
+ * Create Spore client
+ */
+var createClient = exports.createClient = function(token) {
+    var client = spore.createClient(sporeDesc);
+    client.enable(spore.middlewares.basic(token, 'X'));
+    client.enable(spore.middlewares.json());
+    client.enable(accept('application/json'));
+    client.enable(contentType('application/json'));
+    return client;
+}
+
+function formatList(array, propertyName) {
+    for (var i = 0; i < array.length; i++) {
+        console.log(' '+ i + '. '+ array[i][propertyName]);
     }
+}
+
+function chooseIn(list, propertyName, callback) {
+    formatList(list, propertyName);
+    process.stdout.write('enter your choice: ');
+    readInput(function(v) {
+        var index = parseInt(v, 10);
+        if (list.length > index) callback(index);
+        else chooseIn(list, propertyName, callback);
+    });
+}
+
+/**
+ * Add time
+ * options with keys: time, date, billable
+ * client: spore client
+ * callback
+ */
+exports.addTime = function(options, client, callback) {
+    var clientId = null;
+    var time = {
+        time: options.time,
+        date: options.date,
+        billable : options.billable ? 't': 'f'
+    };
+    var sequence = futures.sequence();
+    sequence.then(function(next) {
+        client.me(function(err, res) {
+            if (err) throw err;
+            time.personid = res.body.personid;
+            next();
+        });
+    }).then(function(next) {
+        client.client({active: 't',
+                       // projectsonly parameter seems buggy,
+                       // but hopefully doesn't throw 500 error in API
+                       projectsonly: 't'},
+                      function(err, res) {
+                          console.log('Choose client:');
+                          chooseIn(res.body.client, 'name', function(index) {
+                              clientId = res.body.client[index].id;
+                              next();
+                          });
+                      });
+    }).then(function(next) {
+        client.project({active: 't',
+                        clientid: clientId},
+                       function(err, res) {
+                           console.log('Choose a project:');
+                           chooseIn(res.body.project, 'name', function(index) {
+                               time.projectid = res.body.project[index].id;
+                               next();
+                           });
+                       })
+    }).then(function(next) {
+        client.project_module({projectid: time.projectid}, function(err, res) {
+            console.log('Choose a module:');
+            chooseIn(res.body.projectmodule, 'modulename', function(index) {
+                time.moduleid = res.body.projectmodule[index].moduleid;
+                next();
+            });
+        });
+    }).then(function(next) {
+        client.project_worktype({projectid: time.projectid}, function(err, res) {
+            console.log('Choose a worktype:');
+            chooseIn(res.body.projectworktype, 'worktype', function(index) {
+                time.worktypeid = res.body.projectworktype[index].worktypeid;
+                next();
+            });
+        });
+    }).then(function(next) {
+        client.add_time(JSON.stringify(time), function(err, res) {
+            next();
+            callback(err, res);
+        });
+    });
 };
-
-var token = 'you_token';
-
-var spore = require('spore');
-var client = spore.createClient(sporeDesc);
-client.enable(spore.middlewares.basic(token, 'X'));
-client.enable(accept('application/json'));
-
-client.project({active: 't'}, function(err, res) {
-    console.log(err, res);
-});

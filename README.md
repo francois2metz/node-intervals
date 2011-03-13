@@ -1,6 +1,6 @@
-# MyIntervals
+# Intervals
 
-NodeJS wrapper of [MyIntervals](http://www.myintervals.com) [API](http://www.myintervals.com/api/).
+NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myintervals.com/api/).
 
 *Work in progress.*
 
@@ -8,6 +8,24 @@ NodeJS wrapper of [MyIntervals](http://www.myintervals.com) [API](http://www.myi
 
 * node-spore
 
-## Get Spore description
+## Command line usage
 
-    var desc = require('myinvervals').description;
+`intervals --date 2011-03-14 [--hours 4] [--billable]`
+
+## API
+
+### Get Spore description
+
+    var desc = require('invervals').description;
+
+### Get client
+
+    var client = require('intervals').createClient('secret token');
+
+## Config
+
+An API key is needed. Go to https://xx.timetask.com/account/api/ and generate one.
+
+## License
+
+AGPL v3.
