@@ -26,7 +26,7 @@ function processTime(token) {
 config.read(function(err, value) {
     if (err) {
         if (err.code == 'ENOENT') {
-            process.stdout.write('Please enter your token: ');
+            process.stdout.write('Please enter your token (go to https://xx.timetask.com/account/api/ and generate a new one): ');
             intervals.readInput(function(input) {
                 config.write({token: input}, function(err) {
                     if (err) throw err;
