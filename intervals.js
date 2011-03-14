@@ -67,7 +67,7 @@ function chooseIn(list, propertyName, callback) {
 
 /**
  * Add time
- * options with keys: time, date, billable
+ * options with keys: time, date, billable, description
  * client: spore client
  * callback
  */
