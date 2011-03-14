@@ -17,14 +17,14 @@ NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myint
 
 ## Command line usage
 
-`intervals --date 2011-03-14 [--hours 4] [--billable]`
+`intervals --date 2011-03-14 [--hours 4] [--billable] [--description "Hello World"]`
 
 ### Options
 
 *  date: date in ISO 8601 format (YYYY-MM-DD)
-*  hours
-*  billable
-*  description
+*  hours: default 8
+*  billable: default non billable
+*  description: default empty
 
 ## API
 
