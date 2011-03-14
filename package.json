@@ -4,8 +4,11 @@
 , "bin": {
     "intervals": "./bin/intervals.js"
 }
+, "repository": { "type": "git"
+                 , "url": "http://github.com/francois2metz/node-intervals.git"
+                }
 , "author": "François de Metz <francois@2metz.fr>"
-, "licenses": [{ "type": "BSD"}]
+, "licenses": [{ "type": "AGPL"}]
 , "dependencies": {
     "spore": ">= 0.1.3",
     "optimist" : "",
