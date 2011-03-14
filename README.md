@@ -19,6 +19,13 @@ NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myint
 
 `intervals --date 2011-03-14 [--hours 4] [--billable]`
 
+### Options
+
+*  date: date in ISO 8601 format (YYYY-MM-DD)
+*  hours
+*  billable
+*  description
+
 ## API
 
 ### Get Spore description
