@@ -14,14 +14,15 @@ NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myint
 * node-optimist
 * yaml
 * futures
+* dateformat
 
 ## Command line usage
 
-`intervals --date 2011-03-14 [--hours 4] [--billable] [--description "Hello World"]`
+`intervals [--date 2011-03-14] [--hours 4] [--billable] [--description "Hello World"]`
 
 ### Options
 
-*  date: date in ISO 8601 format (YYYY-MM-DD)
+*  date: date in ISO 8601 format (YYYY-MM-DD), default *today*
 *  hours: default 8
 *  billable: default non billable
 *  description: default empty
@@ -42,6 +43,10 @@ An API key is needed. Go to https://xx.timetask.com/account/api/ and generate on
 The config file is written in ~/.intervals in yaml format.
 
 ## Changelog
+
+* **0.0.3**
+
+   Options date is now optional. Default is *today*.
 
 * **0.0.2**
 

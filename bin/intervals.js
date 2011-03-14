@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-var argv = require('optimist').boolean('billable')
+var dateFormat = require('dateformat')
+  , argv = require('optimist').boolean('billable')
+                              .default('date', dateFormat(new Date(), 'yyyy-mm-dd'))
                               .default('hours', 8)
                               .default('description', '')
                               .argv
@@ -8,21 +10,17 @@ var argv = require('optimist').boolean('billable')
 ;
 
 function processTime(token) {
-    if (!argv.date) {
-        console.log('Usage: intervals --date 2011-03-13 --hours 8 [--billable]');
-    } else {
-        console.log('add '+ argv.hours  +' hours '+ (argv.billable ? 'billable' : 'non billable') +' for '+ argv.date);
-        intervals.addTime({
-            time: argv.hours,
-            date: argv.date,
-            billable: argv.billable,
-            description: argv.description
-        }, intervals.createClient(token), function(err, res) {
-            if (err) throw err;
-            if (res.status != 201) throw res.body;
-            console.log('Success ! time added');
-        });
-    }
+    console.log('add '+ argv.hours  +' hours '+ (argv.billable ? 'billable' : 'non billable') +' for '+ argv.date);
+    intervals.addTime({
+        time: argv.hours,
+        date: argv.date,
+        billable: argv.billable,
+        description: argv.description
+    }, intervals.createClient(token), function(err, res) {
+        if (err) throw err;
+        if (res.status != 201) throw res.body;
+        console.log('Success ! time added');
+    });
 }
 
 config.read(function(err, value) {
