@@ -15,6 +15,7 @@
     "optimist" : "",
     "yaml" : "",
     "futures" : "",
-    "dateformat": ""
+    "dateformat": "",
+    "base64": ""
 }
 }
