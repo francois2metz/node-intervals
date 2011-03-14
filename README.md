@@ -48,6 +48,8 @@ The config file is written in ~/.intervals in yaml format.
 
    Options date is now optional. Default is *today*.
 
+   Add missing base64 dependency.
+
 * **0.0.2**
 
   Add description param.
