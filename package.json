@@ -1,4 +1,5 @@
 { "name": "intervals"
+, "description": "Command line util for myintervals.com API"
 , "version": "0.0.2"
 , "main" : "./intervals"
 , "bin": {
