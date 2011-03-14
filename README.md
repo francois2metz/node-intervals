@@ -41,6 +41,16 @@ NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myint
 An API key is needed. Go to https://xx.timetask.com/account/api/ and generate one.
 The config file is written in ~/.intervals in yaml format.
 
+## Changelog
+
+* **0.0.2**
+
+  Add description param.
+
+* **0.0.1**
+
+  Initial release with basic intervals bin.
+
 ## License
 
 AGPL v3.
