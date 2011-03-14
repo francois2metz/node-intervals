@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var argv = require('optimist').boolean('billable')
                               .default('hours', 8)
+                              .default('description', '')
                               .argv
   , config = require('../config')
   , intervals = require('../intervals')
@@ -14,7 +15,8 @@ function processTime(token) {
         intervals.addTime({
             time: argv.hours,
             date: argv.date,
-            billable: argv.billable
+            billable: argv.billable,
+            description: argv.description
         }, intervals.createClient(token), function(err, res) {
             if (err) throw err;
             if (res.status != 201) throw res.body;

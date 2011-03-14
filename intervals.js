@@ -76,7 +76,8 @@ exports.addTime = function(options, client, callback) {
     var time = {
         time: options.time,
         date: options.date,
-        billable : options.billable ? 't': 'f'
+        billable : options.billable ? 't': 'f',
+        description: options.description
     };
     var sequence = futures.sequence();
     sequence.then(function(next) {
