@@ -40,13 +40,15 @@ NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myint
 ## Config
 
 An API key is needed. Go to https://xx.timetask.com/account/api/ and generate one.
-The config file is written in ~/.intervals in yaml format.
+The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/intervals in yaml format.
 
 ## Changelog
 
 * **0.0.4**
 
    Add short option *-b* for billable hours.
+
+   Use XDG_CONFIG_HOME environment variable for storing config file.
 
 * **0.0.3**
 
