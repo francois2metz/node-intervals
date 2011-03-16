@@ -44,6 +44,10 @@ The config file is written in ~/.intervals in yaml format.
 
 ## Changelog
 
+* **0.0.4**
+
+   Add short option *-b* for billable hours.
+
 * **0.0.3**
 
    Options date is now optional. Default is *today*.

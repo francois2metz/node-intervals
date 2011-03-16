@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var dateFormat = require('dateformat')
-  , argv = require('optimist').boolean('billable')
+  , argv = require('optimist').boolean(['billable', 'b'])
                               .default('date', dateFormat(new Date(), 'yyyy-mm-dd'))
                               .default('hours', 8)
                               .default('description', '')
@@ -9,12 +9,16 @@ var dateFormat = require('dateformat')
   , intervals = require('../intervals')
 ;
 
+function billable() {
+    return argv.billable || argv.b;
+}
+
 function processTime(token) {
-    console.log('add '+ argv.hours  +' hours '+ (argv.billable ? 'billable' : 'non billable') +' for '+ argv.date);
+    console.log('add '+ argv.hours  +' hours '+ (billable() ? 'billable' : 'non billable') +' for '+ argv.date);
     intervals.addTime({
         time: argv.hours,
         date: argv.date,
-        billable: argv.billable,
+        billable: billable(),
         description: argv.description
     }, intervals.createClient(token), function(err, res) {
         if (err) throw err;
