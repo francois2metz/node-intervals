@@ -3,7 +3,10 @@ var fs = require('fs')
 ;
 
 function path() {
-    return process.env.HOME + '/.intervals';
+    if (process.env.XDG_CONFIG_HOME)
+        return process.env.XDG_CONFIG_HOME + '/intervals';
+    return process.env.HOME + '/.config/intervals';
+
 }
 exports.__defineGetter__('path', path);
 

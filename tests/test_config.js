@@ -7,10 +7,23 @@ var config = require('../config')
  , intervals = require('../intervals')
 ;
 
+process.env.HOME = process.cwd();
+process.env.XDG_CONFIG_HOME = process.cwd();
+
 vows.describe('Intervals config').addBatch({
+    'config path follow freedesktop specification': {
+        'with $XDG_CONFIG_HOME not set': function() {
+            delete process.env.XDG_CONFIG_HOME;
+            assert.equal(config.path, process.cwd() + '/.config/intervals');
+        },
+        'with $XDG_CONFIG_HOME set': function() {
+            process.env.XDG_CONFIG_HOME = '/tmp';
+            assert.equal(config.path, '/tmp/intervals');
+        }
+    }
+}).addBatch({
     'if a config file doen\'t exist ': {
         topic: function() {
-            process.env.HOME = process.cwd();
             config.read(this.callback);
         },
         'err is not null': function(err, value) {
@@ -20,11 +33,11 @@ vows.describe('Intervals config').addBatch({
 }).addBatch({
     'if file exist' : {
         topic: function() {
-            fs.writeFile(process.cwd() + '/.intervals', "token: 'mytoken'\n", this.callback);
+            process.env.XDG_CONFIG_HOME = process.cwd();
+            fs.writeFile(process.cwd() + '/intervals', "token: 'mytoken'\n", this.callback);
         },
         'config can be': {
             topic: function() {
-                process.env.HOME = process.cwd();
                 config.read(this.callback);
             },
             'read in yaml format' : function(err, c) {
@@ -33,21 +46,18 @@ vows.describe('Intervals config').addBatch({
             },
             'and destroyed': {
                 topic: function() {
-                    fs.unlink(process.cwd() + '/.intervals', this.callback);
+                    fs.unlink(process.cwd() + '/intervals', this.callback);
                 },
                 'err is null' : function(err, v) {
                     assert.isNull(err);
                 }
             }
-        },
-        'config path can be retrieved': function() {
-            assert.equal(config.path, process.cwd() + '/.intervals');
         }
     }
 }).addBatch({
     'Can be writen': {
         topic: function() {
-            process.env.HOME = process.cwd();
+            process.env.XDG_CONFIG_HOME = process.cwd();
             config.write({token: 'my_token2'}, this.callback);
         },
         'and err is null' : function(err, result) {
@@ -65,7 +75,7 @@ vows.describe('Intervals config').addBatch({
             },
             'and destroyed': {
                 topic: function() {
-                    fs.unlink(process.cwd() + '/.intervals', this.callback);
+                    fs.unlink(process.cwd() + '/intervals', this.callback);
                 },
                 'err is null' : function(err, v) {
                     assert.isNull(err);
