@@ -17,10 +17,33 @@ exports.read = function(callback) {
     });
 }
 
-var toYaml = exports.toYaml = function(data) {
+function toYamlArray(data) {
     var result = "";
+    data.forEach(function(d) {
+        result += "  -\n";
+        result += toYaml(d, '    ');
+    });
+    return result;
+}
+
+function toYamlPrimitive(v) {
+    if (!isNaN(v)) {
+        return v;
+    }
+    return "'"+ v +"'";
+}
+
+var toYaml = exports.toYaml = function(data, indent) {
+    var result = "";
+    var before = indent || '';
     for (var key in data) {
-        result += key + ": '"+ data[key] + "'" +"\n";
+        result += before + key + ":";
+        if (Array.isArray(data[key])) {
+            result += "\n";
+            result += toYamlArray(data[key]);
+        } else {
+            result += " "+ toYamlPrimitive(data[key]) +"\n";
+        }
     }
     return result;
 }

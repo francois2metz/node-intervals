@@ -83,4 +83,13 @@ vows.describe('Intervals config').addBatch({
             }
         }
     }
+}).addBatch({
+    'toYaml support': {
+        'serialize hashs': function() {
+            assert.equal(config.toYaml({
+                projects: [{name: 'hello', projectid: 42},
+                           {name: 'plop'}]
+            }), "projects:\n  -\n    name: 'hello'\n    projectid: 42\n  -\n    name: 'plop'\n");
+        }
+    }
 }).export(module);
