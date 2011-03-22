@@ -6,7 +6,7 @@
     "intervals": "./bin/intervals.js"
 }
 , "repository": { "type": "git"
-                 , "url": "http://github.com/francois2metz/node-intervals.git"
+                 , "url": "https://github.com/francois2metz/node-intervals.git"
                 }
 , "author": "François de Metz <francois@2metz.fr>"
 , "licenses": [{ "type": "AGPL"}]
