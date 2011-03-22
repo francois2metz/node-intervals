@@ -15,15 +15,17 @@ function billable() {
 
 function processTime(token) {
     console.log('add '+ argv.hours  +' hours '+ (billable() ? 'billable' : 'non billable') +' for '+ argv.date);
-    intervals.addTime({
+    var sequence = intervals.addTime({
         time: argv.hours,
         date: argv.date,
         billable: billable(),
         description: argv.description
-    }, intervals.createClient(token), function(err, res) {
+    }, intervals.createClient(token));
+    sequence.then(function(next, err, res, time) {
         if (err) throw err;
         if (res.status != 201) throw res.body;
         console.log('Success ! time added');
+        next();
     });
 }
 

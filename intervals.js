@@ -69,9 +69,9 @@ function chooseIn(list, propertyName, callback) {
  * Add time
  * options with keys: time, date, billable, description
  * client: spore client
- * callback
+ * Return the futures.sequence
  */
-exports.addTime = function(options, client, callback) {
+exports.addTime = function(options, client) {
     var time = {
         time: options.time,
         date: options.date,
@@ -128,8 +128,8 @@ exports.addTime = function(options, client, callback) {
         });
     }).then(function(next) {
         client.add_time(JSON.stringify(time), function(err, res) {
-            next();
-            callback(err, res);
+            next(err, res, time);
         });
     });
+    return sequence;
 };

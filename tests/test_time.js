@@ -70,14 +70,40 @@ vows.describe('Intervals').addBatch({
             var client = createFakeClient();
             client.add_time = this.callback;
             intervals.addTime({time: 4,
+                               date: '2011-03-22',
                                billable: true}, client);
         },
         'with good payload': function(payload, callback) {
-            assert.equal(payload, JSON.stringify({time: 4, billable: 't',
+            assert.equal(payload, JSON.stringify({time: 4,
+                                                  date: '2011-03-22',
+                                                  billable: 't',
                                                   projectid: 'projectid',
                                                   moduleid: 'moduleid',
                                                   worktypeid: 'worktypeid',
                                                   personid: 'me'}));
+
+        }
+    },
+    'return futures': {
+        topic: function() {
+            var client = createFakeClient();
+            return intervals.addTime({time: 5,
+                                      date: '2011-03-22',
+                                      billable: false}, client, function() {});
+        },
+        'then ...': function(future) {
+            future.then(function(next, err, res, time) {
+                assert.isFunction(next);
+                assert.isNull(err);
+                assert.deepEqual(time, {time: 5,
+                                        date: '2011-03-22',
+                                        description: undefined,
+                                        billable: 'f',
+                                        projectid: 'projectid',
+                                        moduleid: 'moduleid',
+                                        worktypeid: 'worktypeid',
+                                        personid: 'me'});
+            });
         }
     }
 }).export(module);
