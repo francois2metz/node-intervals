@@ -72,12 +72,14 @@ function chooseIn(list, propertyName, callback) {
  * callback
  */
 exports.addTime = function(options, client, callback) {
-    var clientId = null;
     var time = {
         time: options.time,
         date: options.date,
         billable : options.billable ? 't': 'f',
-        description: options.description
+        description: options.description,
+        projectid: null,
+        moduleid: null,
+        worktypeid: null
     };
     var sequence = futures.sequence();
     sequence.then(function(next) {
@@ -94,11 +96,11 @@ exports.addTime = function(options, client, callback) {
                       function(err, res) {
                           console.log('Choose client:');
                           chooseIn(res.body.client, 'name', function(index) {
-                              clientId = res.body.client[index].id;
-                              next();
+                              var clientId = res.body.client[index].id;
+                              next(clientId);
                           });
                       });
-    }).then(function(next) {
+    }).then(function(next, clientId) {
         client.project({active: 't',
                         clientid: clientId},
                        function(err, res) {
