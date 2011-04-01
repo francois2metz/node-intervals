@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var dateFormat = require('dateformat')
   , argv = require('optimist').boolean(['billable', 'b'])
-                              .default('date', dateFormat(new Date(), 'yyyy-mm-dd'))
+                              .default(['date', 'd'], dateFormat(new Date(), 'yyyy-mm-dd'))
                               .default('hours', 8)
                               .default('description', '')
                               .argv
@@ -14,17 +14,35 @@ function billable() {
 }
 
 function processTime(token) {
-    console.log('add '+ argv.hours  +' hours '+ (billable() ? 'billable' : 'non billable') +' for '+ argv.date);
-    var sequence = intervals.addTime({
-        time: argv.hours,
-        date: argv.date,
-        billable: billable(),
-        description: argv.description
-    }, intervals.createClient(token));
-    sequence.then(function(next, err, res, time) {
+    var date     = argv.date || argv.d,
+        dates    = (date.getDay) ? [date] : date,
+        options  = { time: argv.hours,
+                     date: dates.shift(),
+                     billable: billable(),
+                     description: argv.description },
+        sequence = null;
+
+    console.log('Add '+ argv.hours + ' ' +
+                (billable() ? 'billable' : 'non billable') +
+                ' hours for '+ options.date);
+    sequence = intervals.addTime(options, intervals.createClient(token));
+    sequence.then(function(next, err, res, time, client) {
         if (err) throw err;
         if (res.status != 201) throw res.body;
-        console.log('Success ! time added');
+        console.log('Success! Time added.');
+
+        // Let's do the other dates too.
+        for (; dates.length != 0; ) {
+          time.date = dates.shift();
+          console.log('Add '+ argv.hours + ' ' +
+                      (billable() ? 'billable' : 'non billable') +
+                      ' hours for '+ time.date);
+          client.add_time(JSON.stringify(time), function (err, res) {
+            if (err) throw err;
+            if (res.status != 201) throw res.body;
+            console.log('Success! Time added.');
+          });
+        }
         next();
     });
 }
