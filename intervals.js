@@ -96,6 +96,7 @@ exports.addTime = function(options, client) {
                        projectsonly: 't'},
                       function(err, res) {
                           console.log('Choose client:');
+                          if (err) throw err;
                           chooseIn(res.body.client, 'name', function(index) {
                               var clientId = res.body.client[index].id;
                               next(clientId);
@@ -106,14 +107,16 @@ exports.addTime = function(options, client) {
                         clientid: clientId},
                        function(err, res) {
                            console.log('Choose a project:');
+                           if (err) throw err;
                            chooseIn(res.body.project, 'name', function(index) {
                                time.projectid = res.body.project[index].id;
                                next();
                            });
-                       })
+                       });
     }).then(function(next) {
         client.project_module({projectid: time.projectid}, function(err, res) {
             console.log('Choose a module:');
+            if (err) throw err;
             chooseIn(res.body.projectmodule, 'modulename', function(index) {
                 time.moduleid = res.body.projectmodule[index].moduleid;
                 next();
@@ -122,6 +125,7 @@ exports.addTime = function(options, client) {
     }).then(function(next) {
         client.project_worktype({projectid: time.projectid}, function(err, res) {
             console.log('Choose a worktype:');
+            if (err) throw err;
             chooseIn(res.body.projectworktype, 'worktype', function(index) {
                 time.worktypeid = res.body.projectworktype[index].worktypeid;
                 next();
@@ -129,7 +133,8 @@ exports.addTime = function(options, client) {
         });
     }).then(function(next) {
         client.add_time(JSON.stringify(time), function(err, res) {
-            next(err, res, time);
+            if (err) throw err;
+            next(err, res, time, client);
         });
     });
     return sequence;
