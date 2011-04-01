@@ -3,9 +3,12 @@
  */
 module.exports = {
     base_url : 'https://api.myintervals.com',
-    formats : ["json", "xml"],
+    formats : ['json', 'xml'],
     authentication: true,
     unattended_params: false,
+    meta : {
+      documentation : 'http://www.myintervals.com/api/'
+    },
 
     methods: {
         me: {
