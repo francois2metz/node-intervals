@@ -92,6 +92,7 @@ exports.addTime = function(options, client) {
         client.client({active: 't',
                        // projectsonly parameter seems buggy,
                        // but hopefully doesn't throw 500 error in API
+                       limit: 40,
                        projectsonly: 't'},
                       function(err, res) {
                           console.log('Choose client:');
