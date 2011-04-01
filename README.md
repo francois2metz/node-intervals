@@ -26,11 +26,11 @@ You can also clone the repository and install dependencies with npm:
 
 ## Command line usage
 
-`intervals [--date 2011-03-14] [--hours 4] [--billable] [--description "Hello World"]`
+`intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]`
 
 ### Options
 
-*  date: date in ISO 8601 format (YYYY-MM-DD), default *today*
+*  date: date in ISO 8601 format (YYYY-MM-DD), default *today*. You can set multiple date at the same time.
 *  hours: default 8
 *  billable: default non billable
 *  description: default empty
@@ -58,6 +58,8 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
    Use XDG_CONFIG_HOME environment variable for storing config file.
 
+   You can now set multiple date at once with multiple *--date* (thanks [oz](https://github.com/oz/)).
+
 * **0.0.3**
 
    Options date is now optional. Default is *today*.
@@ -71,6 +73,11 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 * **0.0.1**
 
   Initial release with basic intervals bin.
+
+## Authors
+
+* François de Metz
+* Arnaud Berthomier
 
 ## License
 
