@@ -14,8 +14,8 @@ function billable() {
 }
 
 function processTime(token) {
-    var date     = argv.d || argv.date,
-        dates    = (date.forEach) ? date : [date],
+    var date     = argv.date,
+        dates    = (Array.isArray(date)) ? date : [date],
         options  = { time: argv.hours,
                      date: dates.shift(),
                      billable: billable(),
