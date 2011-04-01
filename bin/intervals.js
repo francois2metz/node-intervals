@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var dateFormat = require('dateformat')
   , argv = require('optimist').boolean(['billable', 'b'])
-                              .default(['date', 'd'], dateFormat(new Date(), 'yyyy-mm-dd'))
+                              .default('date', dateFormat(new Date(), 'yyyy-mm-dd'))
                               .default('hours', 8)
                               .default('description', '')
                               .argv
@@ -14,8 +14,8 @@ function billable() {
 }
 
 function processTime(token) {
-    var date     = argv.date || argv.d,
-        dates    = (date.getDay) ? [date] : date,
+    var date     = argv.d || argv.date,
+        dates    = (date.forEach) ? date : [date],
         options  = { time: argv.hours,
                      date: dates.shift(),
                      billable: billable(),
