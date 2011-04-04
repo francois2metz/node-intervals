@@ -50,6 +50,11 @@ You can also clone the repository and install dependencies with npm:
 An API key is needed. Go to https://xx.timetask.com/account/api/ and generate one.
 The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/intervals in yaml format.
 
+## Roadmap
+
+* save project/module/worktype and add time quickly for later usage
+* specify range of date: TODAY..TODAY^ like git
+
 ## Changelog
 
 * **0.0.4**
