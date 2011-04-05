@@ -9,21 +9,17 @@ var dateFormat = require('dateformat')
   , intervals = require('../intervals')
 ;
 
-function billable() {
-    return argv.billable || argv.b;
-}
-
 function processTime(token) {
     var date     = argv.date,
         dates    = (Array.isArray(date)) ? date : [date],
         options  = { time: argv.hours,
                      date: dates.shift(),
-                     billable: billable(),
+                     billable: argv.billable || argv.b,
                      description: argv.description },
         sequence = null;
 
-    console.log('Add '+ argv.hours + ' ' +
-                (billable() ? 'billable' : 'non billable') +
+    console.log('Add '+ options.time + ' ' +
+                (options.billable ? 'billable' : 'non billable') +
                 ' hours for '+ options.date);
     sequence = intervals.addTime(options, intervals.createClient(token));
     sequence.then(function(next, err, res, time, client) {
@@ -34,8 +30,8 @@ function processTime(token) {
         // Let's do the other dates too.
         for (; dates.length != 0; ) {
           time.date = dates.shift();
-          console.log('Add '+ argv.hours + ' ' +
-                      (billable() ? 'billable' : 'non billable') +
+          console.log('Add '+ time.hours + ' ' +
+                      (time.billable ? 'billable' : 'non billable') +
                       ' hours for '+ time.date);
           client.add_time(JSON.stringify(time), function (err, res) {
             if (err) throw err;
