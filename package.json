@@ -3,7 +3,7 @@
 , "version": "0.0.4"
 , "main" : "./intervals"
 , "bin": {
-    "intervals": "./bin/intervals.js"
+    "intervals": "./bin/cli.js"
 }
 , "repository": { "type": "git"
                  , "url": "https://github.com/francois2metz/node-intervals.git"
