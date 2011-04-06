@@ -57,6 +57,10 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Changelog
 
+* **0.0.5** (not yet released)
+
+   Add --version option.
+
 * **0.0.4**
 
    Add short option *-b* for billable hours.

@@ -5,6 +5,7 @@ var dateFormat = require('dateformat')
                               .default('hours', 8)
                               .default('description', '')
                               .argv
+  , fs = require('fs')
   , config = require('../config')
   , intervals = require('../intervals')
 ;
@@ -58,6 +59,10 @@ config.read(function(err, value) {
             });
         }
     } else {
-        processTime(value.token);
+        if (argv.version) {
+            console.log("intervals v"+ JSON.parse(fs.readFileSync(__dirname +'/../package.json')).version);
+        } else {
+            processTime(value.token);
+        }
     }
 });
