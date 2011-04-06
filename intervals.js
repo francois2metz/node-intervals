@@ -66,17 +66,13 @@ function chooseIn(list, propertyName, callback) {
 }
 
 /**
- * Add time
- * options with keys: time, date, billable, description
+ * Ask user in interactive mode
  * client: spore client
  * Return the futures.sequence
  */
-exports.addTime = function(options, client) {
-    var time = {
-        time: options.time,
-        date: options.date,
-        billable : options.billable ? 't': 'f',
-        description: options.description,
+exports.askForProject = function(client) {
+    var project = {
+        personid: null,
         projectid: null,
         moduleid: null,
         worktypeid: null
@@ -85,7 +81,7 @@ exports.addTime = function(options, client) {
     sequence.then(function(next) {
         client.me(function(err, res) {
             if (err) throw err;
-            time.personid = res.body.personid;
+            project.personid = res.body.personid;
             next();
         });
     }).then(function(next) {
@@ -109,33 +105,58 @@ exports.addTime = function(options, client) {
                            console.log('Choose a project:');
                            if (err) throw err;
                            chooseIn(res.body.project, 'name', function(index) {
-                               time.projectid = res.body.project[index].id;
+                               project.projectid = res.body.project[index].id;
                                next();
                            });
                        });
     }).then(function(next) {
-        client.project_module({projectid: time.projectid}, function(err, res) {
+        client.project_module({projectid: project.projectid}, function(err, res) {
             console.log('Choose a module:');
             if (err) throw err;
             chooseIn(res.body.projectmodule, 'modulename', function(index) {
-                time.moduleid = res.body.projectmodule[index].moduleid;
+                project.moduleid = res.body.projectmodule[index].moduleid;
                 next();
             });
         });
     }).then(function(next) {
-        client.project_worktype({projectid: time.projectid}, function(err, res) {
+        client.project_worktype({projectid: project.projectid}, function(err, res) {
             console.log('Choose a worktype:');
             if (err) throw err;
             chooseIn(res.body.projectworktype, 'worktype', function(index) {
-                time.worktypeid = res.body.projectworktype[index].worktypeid;
-                next();
+                project.worktypeid = res.body.projectworktype[index].worktypeid;
+                next(project);
             });
-        });
-    }).then(function(next) {
-        client.add_time(JSON.stringify(time), function(err, res) {
-            if (err) throw err;
-            next(err, res, time, client);
         });
     });
     return sequence;
 };
+/**
+ * Add time
+ * project:
+ *  - personid
+ *  - projectid
+ *  - moduleid
+ *  - worktypeid
+ * options with keys:
+ *  - time
+ *  - date
+ *  - billable
+ *  - description
+ * client: spore client
+ * callback
+ */
+exports.addTime = function(project, options, client, callback) {
+    var time = {
+        time: options.time,
+        date: options.date,
+        billable : options.billable ? 't': 'f',
+        description: options.description,
+        personid: project.personid,
+        projectid: project.projectid,
+        moduleid: project.moduleid,
+        worktypeid: project.worktypeid
+    };
+    client.add_time(JSON.stringify(time), function(err, res) {
+        callback(err, res);
+    });
+}

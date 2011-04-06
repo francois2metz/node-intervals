@@ -21,24 +21,26 @@ function processTime(token) {
     console.log('Add '+ options.time + ' ' +
                 (options.billable ? 'billable' : 'non billable') +
                 ' hours for '+ options.date);
-    sequence = intervals.addTime(options, intervals.createClient(token));
-    sequence.then(function(next, err, res, time, client) {
-        if (err) throw err;
-        if (res.status != 201) throw res.body;
-        console.log('Success! Time added.');
-
-        // Let's do the other dates too.
-        for (; dates.length != 0; ) {
-          time.date = dates.shift();
-          console.log('Add '+ time.hours + ' ' +
-                      (time.billable ? 'billable' : 'non billable') +
-                      ' hours for '+ time.date);
-          client.add_time(JSON.stringify(time), function (err, res) {
+    var client = intervals.createClient(token);
+    sequence = intervals.askForProject(client);
+    sequence.then(function(next, project) {
+        intervals.addTime(project, options, client, function(err, res) {
             if (err) throw err;
             if (res.status != 201) throw res.body;
             console.log('Success! Time added.');
-          });
-        }
+        });
+        // Let's do the other dates too.
+        dates.forEach(function(date) {
+            options.date = date;
+            console.log('Add '+ options.time + ' ' +
+                        (options.billable ? 'billable' : 'non billable') +
+                        ' hours for '+ options.date);
+            intervals.addTime(project, options, client, function (err, res) {
+                if (err) throw err;
+                if (res.status != 201) throw res.body;
+                console.log('Success! Time added.');
+            });
+        });
         next();
     });
 }
