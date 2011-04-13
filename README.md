@@ -65,7 +65,7 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
    Add --help option.
 
-   Add man page. `npm help intervals`.
+   Add man page. `man intervals`.
 
 * **0.0.4**
 
