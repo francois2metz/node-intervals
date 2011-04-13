@@ -12,6 +12,8 @@
                  , "url": "https://github.com/francois2metz/node-intervals.git"
                 }
 , "author": "François de Metz <francois@2metz.fr>"
+, "contributors" :
+  [ "Arnaud Berthomier" ]
 , "licenses": [{ "type": "AGPL"}]
 , "dependencies": {
     "spore": ">= 0.1.3",
@@ -21,4 +23,5 @@
     "dateformat": "",
     "base64": ""
 }
+, "devDependencies" : { "ronn" : "" }
 }
