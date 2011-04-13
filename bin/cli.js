@@ -46,27 +46,33 @@ function processTime(token) {
     });
 }
 
-config.read(function(err, value) {
-    if (err) {
-        if (err.code == 'ENOENT') {
-            process.stdout.write('Please enter your token (go to https://xx.timetask.com/account/api/ and generate a new one): ');
-            intervals.readInput(function(input) {
-                config.write({token: input}, function(err) {
-                    if (err) throw err;
-                    console.log('token saved in '+ config.path);
-                    processTime(input);
+function askForToken(callback) {
+    config.read(function(err, value) {
+        if (err) {
+            if (err.code == 'ENOENT') {
+                process.stdout.write('Please enter your token (go to https://xx.timetask.com/account/api/ and generate a new one): ');
+                intervals.readInput(function(input) {
+                    config.write({token: input}, function(err) {
+                        if (err) throw err;
+                        console.log('token saved in '+ config.path);
+                        callback(input);
+                    });
                 });
-            });
-        }
-    } else {
-        if (argv.version) {
-            console.log("intervals v"+ JSON.parse(fs.readFileSync(__dirname +'/../package.json')).version);
-        } else if (argv.help) {
-            console.log('intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]');
-            console.log('intervals --version');
-            console.log('intervals --help');
+            }
         } else {
-            processTime(value.token);
+            callback(value.token);
         }
-    }
-});
+    });
+}
+
+if (argv.version) {
+    console.log("intervals v"+ JSON.parse(fs.readFileSync(__dirname +'/../package.json')).version);
+} else if (argv.help) {
+    console.log('intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]');
+    console.log('intervals --version');
+    console.log('intervals --help');
+} else {
+    askForToken(function(token) {
+        processTime(token);
+    });
+}
