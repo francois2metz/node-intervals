@@ -1,6 +1,6 @@
 { "name": "intervals"
 , "description": "Command line util for myintervals.com API"
-, "version": "0.0.4"
+, "version": "0.0.5"
 , "main" : "./intervals"
 , "bin": {
     "intervals": "./bin/cli.js"
