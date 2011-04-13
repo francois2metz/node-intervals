@@ -68,67 +68,68 @@ function chooseIn(list, propertyName, callback) {
 /**
  * Ask user in interactive mode
  * client: spore client
- * Return the futures.sequence
+ * Return function
  */
 exports.askForProject = function(client) {
-    var project = {
-        personid: null,
-        projectid: null,
-        moduleid: null,
-        worktypeid: null
-    };
-    var sequence = futures.sequence();
-    sequence.then(function(next) {
-        client.me(function(err, res) {
-            if (err) throw err;
-            project.personid = res.body.personid;
-            next();
-        });
-    }).then(function(next) {
-        client.client({active: 't',
-                       // projectsonly parameter seems buggy,
-                       // but hopefully doesn't throw 500 error in API
-                       limit: 40,
-                       projectsonly: 't'},
-                      function(err, res) {
-                          console.log('Choose client:');
-                          if (err) throw err;
-                          chooseIn(res.body.client, 'name', function(index) {
-                              var clientId = res.body.client[index].id;
-                              next(clientId);
-                          });
-                      });
-    }).then(function(next, clientId) {
-        client.project({active: 't',
-                        clientid: clientId},
-                       function(err, res) {
-                           console.log('Choose a project:');
-                           if (err) throw err;
-                           chooseIn(res.body.project, 'name', function(index) {
-                               project.projectid = res.body.project[index].id;
-                               next();
-                           });
-                       });
-    }).then(function(next) {
-        client.project_module({projectid: project.projectid}, function(err, res) {
-            console.log('Choose a module:');
-            if (err) throw err;
-            chooseIn(res.body.projectmodule, 'modulename', function(index) {
-                project.moduleid = res.body.projectmodule[index].moduleid;
+    return function(nextGlobal) {
+        var project = {
+            personid: null,
+            projectid: null,
+            moduleid: null,
+            worktypeid: null
+        };
+        var sequence = futures.sequence();
+        sequence.then(function(next) {
+            client.me(function(err, res) {
+                if (err) throw err;
+                project.personid = res.body.personid;
                 next();
             });
-        });
-    }).then(function(next) {
-        client.project_worktype({projectid: project.projectid}, function(err, res) {
-            console.log('Choose a worktype:');
-            if (err) throw err;
-            chooseIn(res.body.projectworktype, 'worktype', function(index) {
-                project.worktypeid = res.body.projectworktype[index].worktypeid;
-                next(project);
+        }).then(function(next) {
+            client.client({active: 't',
+                           // projectsonly parameter seems buggy,
+                           // but hopefully doesn't throw 500 error in API
+                           limit: 40,
+                           projectsonly: 't'},
+                          function(err, res) {
+                              console.log('Choose client:');
+                              if (err) throw err;
+                              chooseIn(res.body.client, 'name', function(index) {
+                                  var clientId = res.body.client[index].id;
+                                  next(clientId);
+                              });
+                          });
+        }).then(function(next, clientId) {
+            client.project({active: 't',
+                            clientid: clientId},
+                           function(err, res) {
+                               console.log('Choose a project:');
+                               if (err) throw err;
+                               chooseIn(res.body.project, 'name', function(index) {
+                                   project.projectid = res.body.project[index].id;
+                                   next();
+                               });
+                           });
+        }).then(function(next) {
+            client.project_module({projectid: project.projectid}, function(err, res) {
+                console.log('Choose a module:');
+                if (err) throw err;
+                chooseIn(res.body.projectmodule, 'modulename', function(index) {
+                    project.moduleid = res.body.projectmodule[index].moduleid;
+                    next();
+                });
+            });
+        }).then(function(next) {
+            client.project_worktype({projectid: project.projectid}, function(err, res) {
+                console.log('Choose a worktype:');
+                if (err) throw err;
+                chooseIn(res.body.projectworktype, 'worktype', function(index) {
+                    project.worktypeid = res.body.projectworktype[index].worktypeid;
+                    nextGlobal(project);
+                });
             });
         });
-    });
-    return sequence;
+    };
 };
 /**
  * Add time

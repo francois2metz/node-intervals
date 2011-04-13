@@ -52,22 +52,27 @@ function askForToken(callback) {
 /**
  * Ask user to save the project
  */
-function askForSave(conf, project) {
-    process.stdout.write('Do you yant to save this project combinaison: (y/N)');
-    intervals.readInput(function(input) {
-        if (input == 'y') {
-            process.stdout.write('Name of this combinaison: ');
-            intervals.readInput(function(input) {
-                conf.projects ? '': conf.projects = [];
-                project.name = input;
-                conf.projects.push(project);
-                config.write(conf, function(err) {
-                    if (err) throw err;
-                    console.log('ok. You can add time to this combinaison with intervals --project '+ input);
-                })
-            });
-        }
-    });
+function askForSave(conf) {
+    return function(next, project) {
+        process.stdout.write('Do you yant to save this project combinaison: (y/N)');
+        intervals.readInput(function(input) {
+            if (input == 'y') {
+                process.stdout.write('Name of this combinaison: ');
+                intervals.readInput(function(input) {
+                    conf.projects ? '': conf.projects = [];
+                    project.name = input;
+                    conf.projects.push(project);
+                    config.write(conf, function(err) {
+                        if (err) throw err;
+                        console.log('ok. You can add time to this combinaison with intervals --project '+ input);
+                        next();
+                    })
+                });
+            } else {
+                next();
+            }
+        });
+    }
 }
 
 if (argv.version) {
@@ -83,31 +88,29 @@ if (argv.version) {
             options  = { time: argv.hours,
                          dates: dates,
                          billable: argv.billable || argv.b,
-                        description: argv.description },
+                         description: argv.description },
             sequence = null;
 
         console.log('Add '+ options.time + ' ' +
                     (options.billable ? 'billable' : 'non billable') +
-                    ' hours for '+ options.dates.toString());
+                    ' hours for '+ options.dates.join(' and '));
         var client = intervals.createClient(conf.token);
-        if (argv.project) {
-            var sequence = futures.sequence();
-            sequence.then(function(next) {
-                for (var i in conf.projects) {
-                    if (conf.projects[i].name == argv.project) {
-                        var project = conf.projects[i];
-                        delete project.name;
-                        next(project);
-                    }
-                }
-            });
-        } else {
-            sequence = intervals.askForProject(client);
-        }
+        var sequence = futures.sequence();
+        if (argv.project) sequence.then(loadProject(conf, argv));
+        else sequence.then(intervals.askForProject(client));
         sequence.then(processTime(options, client));
-        sequence.then(function(next, project) {
-            askForSave(conf, project);
-            next();
-        });
+        if (!argv.project) sequence.then(askForSave(conf));
     });
+}
+
+function loadProject(conf, argv) {
+    return function(next) {
+        for (var i in conf.projects) {
+            if (conf.projects[i].name == argv.project) {
+                var project = conf.projects[i];
+                delete project.name;
+                next(project);
+            }
+        }
+    }
 }
