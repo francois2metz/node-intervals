@@ -27,6 +27,8 @@ You can also clone the repository and install dependencies with npm:
 ## Command line usage
 
 `intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]`
+`intervals --version`
+`intervals --help`
 
 ### Options
 
@@ -60,6 +62,10 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 * **0.0.5** (not yet released)
 
    Add --version option.
+
+   Add --help option.
+
+   Add man page. `npm help intervals`.
 
 * **0.0.4**
 

@@ -1,0 +1,64 @@
+.\" Generated with Ronnjs/v0.1
+.\" http://github.com/kapouer/ronnjs/
+.
+.TH "INTERVALS" "1" "April 2011" "" ""
+.
+.SH "NAME"
+\fBintervals\fR \-\- manage your timesheets
+.
+.SH "SYNOPSIS"
+\fBintervals\fR [\-\-date 2011\-03\-14 \.\.\.] [\-\-hours 4] [\-\-billable] [\-\-description "Hello World"] \fBintervals\fR \-\-version \fBintervals\fR \-\-help
+.
+.SH "OPTIONS"
+.
+.IP "\(bu" 4
+\fB\-\-date\fR:
+  Specify the date\. You can add multiple date\.
+  Date value must be in ISO 8601 format (YYYY\-MM\-DD) and should be in the account\'s local time\.
+.
+.IP "\(bu" 4
+\fB\-\-hours\fR:
+.
+.IP "\(bu" 4
+\fB\-\-billable\fR:
+.
+.IP "\(bu" 4
+\fB\-\-description\fR:
+  Time entry description\.
+.
+.IP "\(bu" 4
+\fB\-v\fR, \fB\-\-version\fR:
+  Show intervals version and exit\.
+.
+.IP "\(bu" 4
+\fB\-\-help\fR
+  Show this help page\.
+.
+.IP "" 0
+.
+.SH "REQUEST LIMITS"
+Requests are not to exceed:
+.
+.IP "\(bu" 4
+100 requests per minute per IP
+.
+.IP "\(bu" 4
+6000 requests per day per customer account
+.
+.IP "" 0
+.
+.SH "EXAMPLES"
+.
+.nf
+$ intervals \-\-date 2011\-04\-07
+$ intervals \-\-date 2011\-04\-07 \-\-date 2011\-04\-08
+$ intervals \-\-date 2011\-04\-07 \-\-billable
+$ intervals \-\-hours 4
+.
+.fi
+.
+.SH "BUGS"
+Please report bugs in GitHub \fIhttps://github\.com/francois2metz/node\-intervals/issues\fR
+.
+.SH "COPYRIGHT"
+Copyright 2011 François de Metz

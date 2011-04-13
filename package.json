@@ -5,6 +5,9 @@
 , "bin": {
     "intervals": "./bin/cli.js"
 }
+, "directories" : { "doc" : "./doc"
+                  , "man" : "./man"
+                  }
 , "repository": { "type": "git"
                  , "url": "https://github.com/francois2metz/node-intervals.git"
                 }

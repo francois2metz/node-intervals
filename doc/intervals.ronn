@@ -1,0 +1,49 @@
+intervals(1) -- manage your timesheets
+======================================
+
+## SYNOPSIS
+
+`intervals` [--date 2011-03-14 ...] [--hours 4] [--billable] [--description "Hello World"]
+`intervals` --version
+`intervals` --help
+
+## OPTIONS
+
+  * `--date`:
+      Specify the date. You can add multiple date.
+      Date value must be in ISO 8601 format (YYYY-MM-DD) and should be in the account's local time.
+
+  * `--hours`:
+
+  * `--billable`:
+
+  * `--description`:
+      Time entry description.
+
+  * `-v`, `--version`:
+      Show intervals version and exit.
+
+  * `--help`
+      Show this help page.
+
+## REQUEST LIMITS
+
+Requests are not to exceed:
+
+   * 100 requests per minute per IP
+   * 6000 requests per day per customer account
+
+## EXAMPLES
+
+    $ intervals --date 2011-04-07
+    $ intervals --date 2011-04-07 --date 2011-04-08
+    $ intervals --date 2011-04-07 --billable
+    $ intervals --hours 4
+
+## BUGS
+
+Please report bugs in GitHub <https://github.com/francois2metz/node-intervals/issues>
+
+## COPYRIGHT
+
+Copyright 2011 François de Metz

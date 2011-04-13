@@ -61,6 +61,10 @@ config.read(function(err, value) {
     } else {
         if (argv.version) {
             console.log("intervals v"+ JSON.parse(fs.readFileSync(__dirname +'/../package.json')).version);
+        } else if (argv.help) {
+            console.log('intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]');
+            console.log('intervals --version');
+            console.log('intervals --help');
         } else {
             processTime(value.token);
         }
