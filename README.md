@@ -26,16 +26,17 @@ You can also clone the repository and install dependencies with npm:
 
 ## Command line usage
 
-`intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]`
+`intervals [--date 2011-03-14] [--date 2011-03-13] [--project name] [--hours 4] [--billable] [--description "Hello World"]`
 `intervals --version`
 `intervals --help`
 
 ### Options
 
-*  date: date in ISO 8601 format (YYYY-MM-DD), default *today*. You can set multiple date at the same time.
-*  hours: default 8
-*  billable: default non billable
-*  description: default empty
+* date: date in ISO 8601 format (YYYY-MM-DD), default *today*. You can set multiple date at the same time.
+* hours: default 8
+* billable: default non billable
+* description: default empty
+* project: identifier of the project saved
 
 ## API
 
@@ -54,32 +55,36 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Roadmap
 
-* save project/module/worktype and add time quickly for later usage
 * specify range of date: TODAY..TODAY^ like git
+* show table of your time in the current week
 
 ## Changelog
 
+* **0.0.6** (not yet released)
+
+  Save project in config file and reuse it after.
+
 * **0.0.5**
 
-   Add --version option.
+  Add --version option.
 
-   Add --help option.
+  Add --help option.
 
-   Add man page. `man intervals`.
+  Add man page. `man intervals`.
 
 * **0.0.4**
 
-   Add short option *-b* for billable hours.
+  Add short option *-b* for billable hours.
 
-   Use XDG_CONFIG_HOME environment variable for storing config file.
+  Use XDG_CONFIG_HOME environment variable for storing config file.
 
-   You can now set multiple date at once with multiple *--date* (thanks [oz](https://github.com/oz/)).
+  You can now set multiple date at once with multiple *--date* (thanks [oz](https://github.com/oz/)).
 
 * **0.0.3**
 
-   Options date is now optional. Default is *today*.
+  Options date is now optional. Default is *today*.
 
-   Add missing base64 dependency.
+  Add missing base64 dependency.
 
 * **0.0.2**
 

@@ -3,8 +3,10 @@ intervals(1) -- manage your timesheets
 
 ## SYNOPSIS
 
-`intervals` [--date 2011-03-14 ...] [--hours 4] [--billable] [--description "Hello World"]
+`intervals` [--date 2011-03-14 ...] [--project name] [--hours 4] [--billable] [--description "Hello World"]
+
 `intervals` --version
+
 `intervals` --help
 
 ## OPTIONS
@@ -12,6 +14,8 @@ intervals(1) -- manage your timesheets
   * `--date`:
       Specify the date. You can add multiple date.
       Date value must be in ISO 8601 format (YYYY-MM-DD) and should be in the account's local time.
+
+  * `--project`:
 
   * `--hours`:
 
