@@ -11,7 +11,7 @@ var dateFormat = require('dateformat')
   , intervals = require('../intervals')
 ;
 
-function processTime(options, client) {
+function addTime(options, client) {
     return function(next, project) {
         var dates = options.dates;
         delete options.dates;
@@ -77,32 +77,17 @@ function askForSave(conf) {
     }
 }
 
-if (argv.version) {
-    console.log("intervals v"+ JSON.parse(fs.readFileSync(__dirname +'/../package.json')).version);
-} else if (argv.help) {
-    console.log('intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]');
-    console.log('intervals --version');
-    console.log('intervals --help');
-} else {
-    askForToken(function(conf) {
-        var date     = argv.date,
-            dates    = (Array.isArray(date)) ? date : [date],
-            options  = { time: argv.hours,
-                         dates: dates,
-                         billable: argv.billable || argv.b,
-                         description: argv.description },
-            sequence = null;
-
-        console.log('Add '+ options.time + ' ' +
-                    (options.billable ? 'billable' : 'non billable') +
-                    ' hours for '+ options.dates.join(' and '));
-        var client = intervals.createClient(conf.token);
-        var sequence = futures.sequence();
-        if (argv.project) sequence.then(loadProject(conf, argv));
-        else sequence.then(intervals.askForProject(client));
-        sequence.then(processTime(options, client));
-        if (!argv.project) sequence.then(askForSave(conf));
-    });
+/**
+ * Extract options from argv
+ */
+function optionsFrom(argv) {
+    var date     = argv.date,
+        dates    = (Array.isArray(date)) ? date : [date],
+        options  = { time: argv.hours,
+                     dates: dates,
+                     billable: argv.billable || argv.b,
+                     description: argv.description };
+    return options;
 }
 
 function loadProject(conf, argv) {
@@ -115,4 +100,31 @@ function loadProject(conf, argv) {
             }
         }
     }
+}
+
+if (argv.version) {
+    console.log("intervals v"+ JSON.parse(fs.readFileSync(__dirname +'/../package.json')).version);
+} else if (argv.help) {
+    console.log('intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]');
+    console.log('intervals --version');
+    console.log('intervals --help');
+} else {
+    askForToken(function(conf) {
+        var options  = optionsFrom(argv),
+            sequence = null;
+
+        console.log('Add '+ options.time + ' ' +
+                    (options.billable ? 'billable' : 'non billable') +
+                    ' hours for '+ options.dates.join(' and '));
+        var client = intervals.createClient(conf.token);
+        var sequence = futures.sequence();
+        if (argv.project) {
+            sequence.then(loadProject(conf, argv))
+                    .then(addTime(options, client));
+        } else {
+            sequence.then(intervals.askForProject(client))
+                    .then(addTime(options, client))
+                    .then(askForSave(conf));
+        }
+    });
 }
