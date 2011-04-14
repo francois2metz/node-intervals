@@ -42,6 +42,8 @@ function askForToken(callback) {
                         callback({token: input});
                     });
                 });
+            } else {
+                throw err;
             }
         } else {
             callback(value);
