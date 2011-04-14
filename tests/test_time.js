@@ -65,10 +65,9 @@ vows.describe('Intervals').addBatch({
     'ask for project': {
         topic: function() {
             var client = createFakeClient();
-            intervals.askForProject(client).then(this.callback);
+            intervals.askForProject(client)(this.callback);
         },
-        'return good project': function(callback, project) {
-            assert.isFunction(callback);
+        'return good project': function(project) {
             assert.deepEqual(project, {projectid: 'projectid',
                                        moduleid: 'moduleid',
                                        worktypeid: 'worktypeid',
