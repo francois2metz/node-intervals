@@ -26,8 +26,12 @@ You can also clone the repository and install dependencies with npm:
 
 ## Command line usage
 
-`intervals [--date 2011-03-14] [--date 2011-03-13] [--project name] [--hours 4] [--billable] [--description "Hello World"]`
+`intervals [add-time] [--date 2011-03-14] [--date 2011-03-13] [--project name] [--hours 4] [--billable] [--description "Hello World"]`
+
+`intervals list-projects`
+
 `intervals --version`
+
 `intervals --help`
 
 ### Options

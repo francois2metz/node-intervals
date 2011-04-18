@@ -5,7 +5,6 @@ var dateFormat = require('dateformat')
                               .default('hours', 8)
                               .default('description', '')
                               .argv
-  , fs = require('fs')
   , futures = require('futures')
   , config = require('../config')
   , intervals = require('../intervals')
@@ -102,13 +101,29 @@ function loadProject(conf, argv) {
     }
 }
 
-if (argv.version) {
-    console.log("intervals v"+ JSON.parse(fs.readFileSync(__dirname +'/../package.json')).version);
-} else if (argv.help) {
-    console.log('intervals [--date 2011-03-14] [--date 2011-03-13] [--hours 4] [--billable] [--description "Hello World"]');
-    console.log('intervals --version');
-    console.log('intervals --help');
-} else {
+if (argv._.length > 1) {
+    return require('../help')();
+}
+if (argv._.length == 0) {
+    argv._.push('add-time');
+}
+var cmd = argv._[0];
+
+if (argv.version || cmd == 'version') {
+    return require('../version')();
+} else if (argv.help || cmd == 'help') {
+    return require('../help')();
+} else if (cmd == 'list-projects') {
+    askForToken(function(conf) {
+        if (Array.isArray(conf.projects) && conf.projects.length) {
+            conf.projects.forEach(function(project) {
+                console.log(project.name, project);
+            });
+        } else {
+            console.log('no projects found. Register a new one with intervals add-time');
+        }
+    });
+} else if (cmd == 'add-time') {
     askForToken(function(conf) {
         var options  = optionsFrom(argv),
             sequence = null;
@@ -127,4 +142,6 @@ if (argv.version) {
                     .then(askForSave(conf));
         }
     });
+} else {
+    return require('../help')();
 }
