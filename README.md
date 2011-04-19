@@ -26,21 +26,7 @@ You can also clone the repository and install dependencies with npm:
 
 ## Command line usage
 
-`intervals [add-time] [--date 2011-03-14] [--date 2011-03-13] [--project name] [--hours 4] [--billable] [--description "Hello World"]`
-
-`intervals list-projects`
-
-`intervals --version`
-
-`intervals --help`
-
-### Options
-
-* date: date in ISO 8601 format (YYYY-MM-DD), default *today*. You can set multiple date at the same time.
-* hours: default 8
-* billable: default non billable
-* description: default empty
-* project: identifier of the project saved
+See doc/intervals.ronn.
 
 ## API
 
