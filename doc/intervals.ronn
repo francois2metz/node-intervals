@@ -3,7 +3,7 @@ intervals(1) -- manage your timesheets
 
 ## SYNOPSIS
 
-`intervals` [add-time] [--date 2011-03-14 ...] [--project name] [--hours 4] [--billable] [--description "Hello World"]
+`intervals` add-time [--date 2011-03-14 ...] [--project name] [--hours 4] [--billable] [--description "Hello World"]
 
 `intervals` list-projects
 
@@ -16,15 +16,19 @@ intervals(1) -- manage your timesheets
   * `--date`:
       Specify the date. You can add multiple date.
       Date value must be in ISO 8601 format (YYYY-MM-DD) and should be in the account's local time.
+      Default date is today.
 
   * `--project`:
+      Name of a previously saved project. Use `intervals` list-projects to list projects saved.
 
   * `--hours`:
+      Number of hours. Default 8 hours.
 
   * `--billable`:
+      Is your hours billable ? Default non billable.
 
   * `--description`:
-      Time entry description.
+      Time entry description. Default is empty.
 
   * `-v`, `--version`:
       Show intervals version and exit.

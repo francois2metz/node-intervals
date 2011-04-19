@@ -7,7 +7,7 @@
 \fBintervals\fR \-\- manage your timesheets
 .
 .SH "SYNOPSIS"
-\fBintervals\fR [add\-time] [\-\-date 2011\-03\-14 \.\.\.] [\-\-project name] [\-\-hours 4] [\-\-billable] [\-\-description "Hello World"]
+\fBintervals\fR add\-time [\-\-date 2011\-03\-14 \.\.\.] [\-\-project name] [\-\-hours 4] [\-\-billable] [\-\-description "Hello World"]
 .
 .P
 \fBintervals\fR list\-projects
@@ -24,19 +24,23 @@
 \fB\-\-date\fR:
   Specify the date\. You can add multiple date\.
   Date value must be in ISO 8601 format (YYYY\-MM\-DD) and should be in the account\'s local time\.
+  Default date is today\.
 .
 .IP "\(bu" 4
 \fB\-\-project\fR:
+  Name of a previously saved project\. Use \fBintervals\fR list\-projects to list projects saved\.
 .
 .IP "\(bu" 4
 \fB\-\-hours\fR:
+  Number of hours\. Default 8 hours\.
 .
 .IP "\(bu" 4
 \fB\-\-billable\fR:
+  Is your hours billable ? Default non billable\.
 .
 .IP "\(bu" 4
 \fB\-\-description\fR:
-  Time entry description\.
+  Time entry description\. Default is empty\.
 .
 .IP "\(bu" 4
 \fB\-v\fR, \fB\-\-version\fR:
