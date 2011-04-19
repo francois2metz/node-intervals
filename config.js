@@ -41,6 +41,9 @@ var toYaml = exports.toYaml = function(data, indent) {
         if (Array.isArray(data[key])) {
             result += "\n";
             result += toYamlArray(data[key]);
+        } else if (!data[key].substr && !data[key].toFixed) {
+            result += "\n";
+            result += toYaml(data[key], '      ');
         } else {
             result += " "+ toYamlPrimitive(data[key]) +"\n";
         }

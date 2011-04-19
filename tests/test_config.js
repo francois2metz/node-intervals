@@ -90,6 +90,12 @@ vows.describe('Intervals config').addBatch({
                 projects: [{name: 'hello', projectid: 42},
                            {name: 'plop'}]
             }), "projects:\n  -\n    name: 'hello'\n    projectid: 42\n  -\n    name: 'plop'\n");
+        },
+        'serialize deep hashs': function() {
+            assert.equal(config.toYaml({
+                projects: [{name: 'hello', projectid: 42},
+                           {name: 'plop'}, {human: {name: 'hello'}}]
+            }), "projects:\n  -\n    name: 'hello'\n    projectid: 42\n  -\n    name: 'plop'\n  -\n    human:\n      name: 'hello'\n");
         }
     }
 }).export(module);
