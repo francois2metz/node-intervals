@@ -50,7 +50,7 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Changelog
 
-* **0.0.6** (not yet released)
+* **0.0.6**
 
   Save project in config file and reuse it after with --project option.
 
