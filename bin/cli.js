@@ -10,22 +10,34 @@ var dateFormat = require('dateformat')
   , intervals = require('../intervals')
 ;
 
+/**
+ * Add time for each dates specified
+ */
 function addTime(options, client) {
     return function(next, project) {
         var dates = options.dates;
         delete options.dates;
-        dates.forEach(function(date) {
-            options.date = date;
-            console.log('Add '+ options.time + ' ' +
-                        (options.billable ? 'billable' : 'non billable') +
-                        ' hours for '+ options.date);
-            intervals.addTime(project, options, client, function (err, res) {
+        var join = futures.join();
+        join.add(dates.map(function(date) {
+            var promise = futures.future();
+            var opts = {};
+            // we must clone to prevent options.date override
+            for (var i in options) opts[i] = options[i];
+            opts.date = date;
+            console.log('Add '+ opts.time + ' ' +
+                        (opts.billable ? 'billable' : 'non billable') +
+                        ' hours for '+ opts.date);
+            intervals.addTime(project, opts, client, function (err, res) {
                 if (err) throw err;
                 if (res.status != 201) throw res.body;
                 console.log('Success! Time added.');
+                promise.deliver();
             });
-        });
-        next(project);
+            return promise;
+        }));
+        join.when(function() {
+            next(project);
+        })
     };
 }
 
