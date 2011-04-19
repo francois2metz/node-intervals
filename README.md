@@ -52,7 +52,13 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 * **0.0.6** (not yet released)
 
-  Save project in config file and reuse it after.
+  Save project in config file and reuse it after with --project option.
+
+  Add intervals -v and intervals help as shortcut for intervals --help.
+
+  intervals without argument is an alias of intervals add-time.
+
+  Add intervals list-projects command.
 
 * **0.0.5**
 
