@@ -109,7 +109,7 @@ if (argv._.length == 0) {
 }
 var cmd = argv._[0];
 
-if (argv.version || cmd == 'version') {
+if (argv.version || cmd == 'version' || argv.v) {
     return require('../version')();
 } else if (argv.help || cmd == 'help') {
     return require('../help')();
