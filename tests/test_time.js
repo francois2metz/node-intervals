@@ -30,7 +30,7 @@ function createFakeClient() {
                 body: {
                     project: [{
                         id: 'projectid',
-                        name: 'hello'
+                        name: 'project'
                     }]
                 }
             });
@@ -41,7 +41,7 @@ function createFakeClient() {
                 body: {
                     projectmodule: [{
                         moduleid: 'moduleid',
-                        modulename: 'hello'
+                        modulename: 'module'
                     }]
                 }
             });
@@ -52,7 +52,7 @@ function createFakeClient() {
                 body: {
                     projectworktype: [{
                         worktypeid: 'worktypeid',
-                        worktype: 'hello'
+                        worktype: 'worktype'
                     }]
                 }
             });
@@ -68,10 +68,15 @@ vows.describe('Intervals').addBatch({
             intervals.askForProject(client)(this.callback);
         },
         'return good project': function(project) {
-            assert.deepEqual(project, {projectid: 'projectid',
+            assert.deepEqual(project, {personid: 'me',
+                                       projectid: 'projectid',
                                        moduleid: 'moduleid',
                                        worktypeid: 'worktypeid',
-                                       personid: 'me'});
+                                       human: {
+                                           project: 'project',
+                                           module: 'module',
+                                           worktype: 'worktype'
+                                       }});
 
         }
     }

@@ -60,7 +60,7 @@ function chooseIn(list, propertyName, callback) {
     process.stdout.write('enter your choice: ');
     readInput(function(v) {
         var index = parseInt(v, 10);
-        if (list.length > index) callback(index);
+        if (list.length > index) callback(index, list[index]);
         else chooseIn(list, propertyName, callback);
     });
 }
@@ -76,7 +76,12 @@ exports.askForProject = function(client) {
             personid: null,
             projectid: null,
             moduleid: null,
-            worktypeid: null
+            worktypeid: null,
+            human: {
+                project: null,
+                module: null,
+                worktype: null
+            }
         };
         var sequence = futures.sequence();
         sequence.then(function(next) {
@@ -94,8 +99,8 @@ exports.askForProject = function(client) {
                           function(err, res) {
                               console.log('Choose client:');
                               if (err) throw err;
-                              chooseIn(res.body.client, 'name', function(index) {
-                                  var clientId = res.body.client[index].id;
+                              chooseIn(res.body.client, 'name', function(index, aClient) {
+                                  var clientId = aClient.id;
                                   next(clientId);
                               });
                           });
@@ -105,8 +110,9 @@ exports.askForProject = function(client) {
                            function(err, res) {
                                console.log('Choose a project:');
                                if (err) throw err;
-                               chooseIn(res.body.project, 'name', function(index) {
-                                   project.projectid = res.body.project[index].id;
+                               chooseIn(res.body.project, 'name', function(index, aProject) {
+                                   project.projectid = aProject.id;
+                                   project.human.project = aProject.name;
                                    next();
                                });
                            });
@@ -114,8 +120,9 @@ exports.askForProject = function(client) {
             client.project_module({projectid: project.projectid}, function(err, res) {
                 console.log('Choose a module:');
                 if (err) throw err;
-                chooseIn(res.body.projectmodule, 'modulename', function(index) {
-                    project.moduleid = res.body.projectmodule[index].moduleid;
+                chooseIn(res.body.projectmodule, 'modulename', function(index, aModule) {
+                    project.moduleid = aModule.moduleid;
+                    project.human.module = aModule.modulename;
                     next();
                 });
             });
@@ -123,8 +130,9 @@ exports.askForProject = function(client) {
             client.project_worktype({projectid: project.projectid}, function(err, res) {
                 console.log('Choose a worktype:');
                 if (err) throw err;
-                chooseIn(res.body.projectworktype, 'worktype', function(index) {
-                    project.worktypeid = res.body.projectworktype[index].worktypeid;
+                chooseIn(res.body.projectworktype, 'worktype', function(index, aWorktype) {
+                    project.worktypeid = aWorktype.worktypeid;
+                    project.human.worktype = aWorktype.worktype;
                     nextGlobal(project);
                 });
             });
