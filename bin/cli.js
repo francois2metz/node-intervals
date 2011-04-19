@@ -129,7 +129,8 @@ if (argv.version || cmd == 'version' || argv.v) {
     askForToken(function(conf) {
         if (Array.isArray(conf.projects) && conf.projects.length) {
             conf.projects.forEach(function(project) {
-                console.log(project.name, ':\n', config.toYaml(project.human, '  '));
+                console.log(project.name, ":");
+                console.log(config.toYaml(project.human, '  '));
             });
         } else {
             console.log('no projects found. Register a new one with intervals add-time');
