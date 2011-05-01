@@ -106,6 +106,7 @@ exports.askForProject = function(client) {
                           });
         }).then(function(next, clientId) {
             client.project({active: 't',
+                            personid: project.personid,
                             clientid: clientId},
                            function(err, res) {
                                console.log('Choose a project:');
@@ -117,7 +118,8 @@ exports.askForProject = function(client) {
                                });
                            });
         }).then(function(next) {
-            client.project_module({projectid: project.projectid}, function(err, res) {
+            client.project_module({projectid: project.projectid,
+                                   personid: project.personid}, function(err, res) {
                 console.log('Choose a module:');
                 if (err) throw err;
                 chooseIn(res.body.projectmodule, 'modulename', function(index, aModule) {
@@ -127,7 +129,8 @@ exports.askForProject = function(client) {
                 });
             });
         }).then(function(next) {
-            client.project_worktype({projectid: project.projectid}, function(err, res) {
+            client.project_worktype({projectid: project.projectid,
+                                     personid: project.personid}, function(err, res) {
                 console.log('Choose a worktype:');
                 if (err) throw err;
                 chooseIn(res.body.projectworktype, 'worktype', function(index, aWorktype) {
