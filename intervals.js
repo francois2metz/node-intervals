@@ -94,7 +94,7 @@ exports.askForProject = function(client) {
             client.client({active: 't',
                            // projectsonly parameter seems buggy,
                            // but hopefully doesn't throw 500 error in API
-                           limit: 40,
+                           limit: 42,
                            projectsonly: 't'},
                           function(err, res) {
                               console.log('Choose client:');
@@ -119,6 +119,7 @@ exports.askForProject = function(client) {
                            });
         }).then(function(next) {
             client.project_module({projectid: project.projectid,
+                                   limit: 42,
                                    personid: project.personid}, function(err, res) {
                 console.log('Choose a module:');
                 if (err) throw err;
@@ -130,6 +131,7 @@ exports.askForProject = function(client) {
             });
         }).then(function(next) {
             client.project_worktype({projectid: project.projectid,
+                                     limit: 42,
                                      personid: project.personid}, function(err, res) {
                 console.log('Choose a worktype:');
                 if (err) throw err;
