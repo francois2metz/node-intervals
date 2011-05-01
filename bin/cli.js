@@ -155,6 +155,10 @@ if (argv.version || cmd == 'version' || argv.v) {
                     .then(askForSave(conf));
         }
     });
+} else if (cmd == 'ls') {
+    askForToken(function(conf) {
+        require('../list')(conf, argv);
+    });
 } else {
     return require('../help')();
 }

@@ -7,6 +7,8 @@ intervals(1) -- manage your timesheets
 
 `intervals` list-projects
 
+`intervals` ls [--start 2011-03-14] [--end 2011-03-14]
+
 `intervals` --version
 
 `intervals` --help
@@ -17,6 +19,12 @@ intervals(1) -- manage your timesheets
       Specify the date. You can add multiple date.
       Date value must be in ISO 8601 format (YYYY-MM-DD) and should be in the account's local time.
       Default date is today.
+
+  * `--start`:
+      Specify the start date.
+
+  * `--end`:
+      Specify the date of end.
 
   * `--project`:
       Name of a previously saved project. Use `intervals` list-projects to list projects saved.

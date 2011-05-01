@@ -21,7 +21,9 @@
     "yaml" : "",
     "futures" : "",
     "dateformat": "",
-    "base64": ""
+    "base64": "",
+    "cli-table": ""
 }
-, "devDependencies" : { "ronn" : "" }
+, "devDependencies" : { "ronn" : "",
+                        "vows": ""}
 }
