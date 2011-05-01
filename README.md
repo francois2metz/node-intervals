@@ -8,13 +8,13 @@ NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myint
 
 The best way is to use npm:
 
-    npm install intervals
+    npm install -g intervals
 
 You can also clone the repository and install dependencies with npm:
 
     git clone https://github.com/francois2metz/node-intervals.git
     cd node-intervals
-    npm bundle
+    npm install
 
 ## Dependencies
 
