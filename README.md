@@ -46,7 +46,6 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 ## Roadmap
 
 * specify range of date: TODAY..TODAY^ like git
-* show table of your time in the current week
 
 ## Changelog
 
