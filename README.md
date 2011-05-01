@@ -50,15 +50,21 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Changelog
 
+* **0.0.7**
+
+  Add `intervals ls` command.
+
+  QuickFix bug when result list is too short.
+
 * **0.0.6**
 
-  Save project in config file and reuse it after with --project option.
+  Save project in config file and reuse it after with `--project` option.
 
-  Add intervals -v and intervals help as shortcut for intervals --help.
+  Add `intervals -v` and `intervals help` as shortcut of `intervals --help`.
 
-  intervals without argument is an alias of intervals add-time.
+  intervals without argument is an alias of `intervals add-time`.
 
-  Add intervals list-projects command.
+  Add `intervals list-projects` command.
 
 * **0.0.5**
 
