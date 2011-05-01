@@ -1,6 +1,9 @@
 
 all: doc
 
+tests:
+	vows tests/*
+
 docs = $(shell find doc -name '*.ronn' \
 	|sed 's|.ronn|.1|g' \
 	|sed 's|doc/|man1/|g' )
@@ -12,4 +15,4 @@ man1/%.1: doc/%.ronn
 
 doc: $(docs)
 
-.PHONY: doc
+.PHONY: doc tests
