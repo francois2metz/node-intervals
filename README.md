@@ -49,6 +49,10 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Changelog
 
+* **0.0.8**
+
+  List only active modules and workype.
+
 * **0.0.7**
 
   Add `intervals ls` command.
