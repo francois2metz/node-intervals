@@ -120,6 +120,7 @@ exports.askForProject = function(client) {
         }).then(function(next) {
             client.project_module({projectid: project.projectid,
                                    limit: 42,
+                                   active: 't',
                                    personid: project.personid}, function(err, res) {
                 console.log('Choose a module:');
                 if (err) throw err;
@@ -132,6 +133,7 @@ exports.askForProject = function(client) {
         }).then(function(next) {
             client.project_worktype({projectid: project.projectid,
                                      limit: 42,
+                                     active: 't',
                                      personid: project.personid}, function(err, res) {
                 console.log('Choose a worktype:');
                 if (err) throw err;
