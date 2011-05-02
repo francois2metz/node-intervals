@@ -22,9 +22,11 @@ intervals(1) -- manage your timesheets
 
   * `--start`:
       Specify the start date.
+      Default date is today.
 
   * `--end`:
       Specify the date of end.
+      Default date is today.
 
   * `--project`:
       Name of a previously saved project. Use `intervals` list-projects to list projects saved.

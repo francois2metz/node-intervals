@@ -49,7 +49,7 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Changelog
 
-* **0.0.9** (not yet released)
+* **0.0.9**
 
   Use a pager if the number of results exceed the number of row in the tty.
 
