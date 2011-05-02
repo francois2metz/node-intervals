@@ -53,6 +53,10 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
   Use a pager if the number of results exceed the number of row in the tty.
 
+  Show complete list of results when adding time in a project. We have an
+  hardcoded value '42' but if the result contains more result, we made a new
+  request.
+
 * **0.0.8**
 
   List only active modules and workype.

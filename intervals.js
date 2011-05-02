@@ -25,6 +25,31 @@ function contentType(contentType) {
     };
 }
 
+/**
+ * New request if 'limit' increase if the result list is not complete
+ */
+function acceptMore() {
+    return function(method, request, next) {
+        next(function(response, next) {
+            if (method.method == 'GET'
+                && request.params.limit
+                && !request.params.offset
+                && response.body.listcount > request.params.limit) {
+                request.params.limit = response.body.listcount;
+                request.finalize(function onFinalize(err, resp2) {
+                    if (err) throw err;
+                    response.status = resp2.status;
+                    response.headers = resp2.headers;
+                    response.body = JSON.parse(resp2.body);
+                    next();
+                });
+            } else {
+                next();
+            }
+        });
+    };
+}
+
 var sporeDesc = exports.description = require('./description');
 
 /**
@@ -33,6 +58,7 @@ var sporeDesc = exports.description = require('./description');
 var createClient = exports.createClient = function(token) {
     var client = spore.createClient(sporeDesc);
     client.enable(spore.middlewares.basic(token, 'X'));
+    client.enable(acceptMore());
     client.enable(spore.middlewares.json());
     client.enable(accept('application/json'));
     client.enable(contentType('application/json'));
@@ -99,9 +125,9 @@ exports.askForProject = function(client) {
             });
         }).then(function(next) {
             client.client({active: 't',
+                           limit: 42,
                            // projectsonly parameter seems buggy,
                            // but hopefully doesn't throw 500 error in API
-                           limit: 42,
                            projectsonly: 't'},
                           function(err, res) {
                               console.log('Choose client:');
