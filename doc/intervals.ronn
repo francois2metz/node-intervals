@@ -58,6 +58,11 @@ Requests are not to exceed:
     $ intervals --date 2011-04-07 --billable
     $ intervals --hours 4
 
+## ENVIRONMENT VARIABLES
+
+   * XDG_CONFIG_HOME
+   * PAGER
+
 ## BUGS
 
 Please report bugs in GitHub <https://github.com/francois2metz/node-intervals/issues>
