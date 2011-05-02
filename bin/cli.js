@@ -8,6 +8,7 @@ var dateFormat = require('dateformat')
   , futures = require('futures')
   , config = require('../config')
   , intervals = require('../intervals')
+  , utils = require('../utils')
 ;
 
 /**
@@ -46,7 +47,7 @@ function askForToken(callback) {
         if (err) {
             if (err.code == 'ENOENT') {
                 process.stdout.write('Please enter your token (go to https://xx.timetask.com/account/api/ and generate a new one): ');
-                intervals.readInput(function(input) {
+                utils.readInput(function(input) {
                     config.write({token: input}, function(err) {
                         if (err) throw err;
                         console.log('token saved in '+ config.path);
@@ -68,10 +69,10 @@ function askForToken(callback) {
 function askForSave(conf) {
     return function(next, project) {
         process.stdout.write('Do you yant to save this project combinaison: (y/N)');
-        intervals.readInput(function(input) {
+        utils.readInput(function(input) {
             if (input == 'y') {
                 process.stdout.write('Name of this combinaison: ');
-                intervals.readInput(function(input) {
+                utils.readInput(function(input) {
                     conf.projects ? '': conf.projects = [];
                     project.name = input;
                     conf.projects.push(project);

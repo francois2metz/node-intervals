@@ -28,20 +28,6 @@ function contentType(contentType) {
 var sporeDesc = exports.description = require('./description');
 
 /**
- * Read stdin
- */
-var readInput = exports.readInput = function(callback) {
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('data', function (chunk) {
-        process.stdin.pause(); // pause stdin after input
-        process.stdin.removeAllListeners('data');
-        process.stdin.removeAllListeners('end');
-        callback(chunk.trim());
-    });
-    process.stdin.on('end', function () {});
-}
-/**
  * Create Spore client
  */
 var createClient = exports.createClient = function(token) {
@@ -67,7 +53,7 @@ function usePager(length) {
 function chooseIn(list, propertyName, callback) {
     var next = function() {
         process.stdout.write('enter your choice: ');
-        readInput(function(v) {
+        utils.readInput(function(v) {
             var index = parseInt(v, 10);
             if (list.length > index) callback(index, list[index]);
             else chooseIn(list, propertyName, callback);

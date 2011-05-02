@@ -22,3 +22,18 @@ exports.pipe = function(cmd, args) {
                                           stdio.stdoutFD,
                                           stdio.stderrFD]});
 }
+
+/**
+ * Read stdin
+ */
+exports.readInput = function(callback) {
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', function (chunk) {
+        process.stdin.pause(); // pause stdin after input
+        process.stdin.removeAllListeners('data');
+        process.stdin.removeAllListeners('end');
+        callback(chunk.trim());
+    });
+    process.stdin.on('end', function () {});
+}
