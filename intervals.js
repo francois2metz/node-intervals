@@ -1,5 +1,9 @@
 var spore = require('spore')
   , futures = require('futures')
+  , utils = require('./utils')
+  , tty = require('tty')
+  , Stream = require('stream').Stream
+  , pump = require('util').pump
 ;
 
 /**
@@ -49,20 +53,37 @@ var createClient = exports.createClient = function(token) {
     return client;
 }
 
-function formatList(array, propertyName) {
+function formatListIn(stream, array, propertyName) {
     for (var i = 0; i < array.length; i++) {
-        console.log(' '+ i + '. '+ array[i][propertyName]);
+        stream.emit('data', ' '+ i + '. '+ array[i][propertyName] + "\n");
     }
 }
 
+function usePager(length) {
+    var stdoutFD = process.binding("stdio").stdoutFD;
+    return (tty.isatty(stdoutFD) && tty.getWindowSize(stdoutFD)[0] < length);
+}
+
 function chooseIn(list, propertyName, callback) {
-    formatList(list, propertyName);
-    process.stdout.write('enter your choice: ');
-    readInput(function(v) {
-        var index = parseInt(v, 10);
-        if (list.length > index) callback(index, list[index]);
-        else chooseIn(list, propertyName, callback);
-    });
+    var next = function() {
+        process.stdout.write('enter your choice: ');
+        readInput(function(v) {
+            var index = parseInt(v, 10);
+            if (list.length > index) callback(index, list[index]);
+            else chooseIn(list, propertyName, callback);
+        });
+    }
+    var stream = new Stream();
+    pump(stream, process.stdout);
+    if (usePager(list.length)) {
+        var pager = utils.pipe(process.env.PAGER || "less", []);
+        pump(stream, pager.stdin);
+        pager.on('exit', next);
+    } else {
+        stream.on('close', next);
+    }
+    formatListIn(stream, list, propertyName);
+    stream.emit('close');
 }
 
 /**
