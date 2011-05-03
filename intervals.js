@@ -89,7 +89,7 @@ function chooseIn(list, propertyName, callback) {
     pump(stream, process.stdout);
     if (usePager(list.length)) {
         var pager = utils.pipe(process.env.PAGER || "less", []);
-        pump(stream, pager.stdin);
+        stream.pipe(pager.stdin);
         pager.on('exit', next);
     } else {
         stream.on('close', next);
