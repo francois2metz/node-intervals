@@ -50,7 +50,7 @@ function acceptMore() {
     };
 }
 
-var sporeDesc = exports.description = require('./description');
+var sporeDesc = exports.description = JSON.parse(require('fs').readFileSync(__dirname +'/intervals.json', 'utf8'));
 
 /**
  * Create Spore client
