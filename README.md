@@ -49,7 +49,7 @@ Please submit features request :).
 
 ## Changelog
 
-* **0.1.0** (not yet released)
+* **0.1.0**
 
   Date with a range. Like 2011-06-17..2011-06-14.
 
