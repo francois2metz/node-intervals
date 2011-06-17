@@ -17,7 +17,8 @@ intervals(1) -- manage your timesheets
 
   * `--date`:
       Specify the date. You can add multiple date.
-      Date value must be in ISO 8601 format (YYYY-MM-DD) and should be in the account's local time.
+      You can also specify a range of date (2011-06-17..2011-06-14) or a string (yesterday, today) .
+      When you are using a range, date value must be in ISO 8601 format (YYYY-MM-DD) and should be in the account's local time.
       Default date is today.
 
   * `--start`:

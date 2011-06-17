@@ -94,7 +94,7 @@ function askForSave(conf) {
  */
 function optionsFrom(argv) {
     var date     = argv.date,
-        dates    = (Array.isArray(date)) ? date : [date],
+        dates    = utils.parseDate(date),
         options  = { time: argv.hours,
                      dates: dates,
                      billable: argv.billable || argv.b,
