@@ -2,8 +2,6 @@
 
 NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myintervals.com/api/).
 
-*Work in progress.*
-
 ## Install
 
 The best way is to use npm:
