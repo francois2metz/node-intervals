@@ -7,7 +7,7 @@
 \fBintervals\fR \-\- manage your timesheets
 .
 .SH "SYNOPSIS"
-\fBintervals\fR add\-time [\-\-date 2011\-03\-14 \.\.\.] [\-\-project name] [\-\-hours 4] [\-\-billable] [\-\-description "Hello World"]
+\fBintervals\fR [add\-time] [\-\-date 2011\-03\-14 \.\.\.] [\-\-project name] [\-\-hours 4] [\-\-billable] [\-\-description "Hello World"]
 .
 .P
 \fBintervals\fR list\-projects
@@ -83,6 +83,8 @@ Requests are not to exceed:
 $ intervals \-\-date 2011\-04\-07
 $ intervals \-\-date 2011\-04\-07 \-\-date 2011\-04\-08
 $ intervals \-\-date 2011\-04\-07 \-\-billable
+$ intervals \-\-date 2011\-04\-07\.\.2011\-04\-15
+$ intervals \-\-date yesterday
 $ intervals \-\-hours 4
 .
 .fi
