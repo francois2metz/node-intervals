@@ -20,7 +20,6 @@ You can also clone the repository and install dependencies with npm:
 * node-optimist
 * yaml
 * futures
-* dateformat
 
 ## Command line usage
 

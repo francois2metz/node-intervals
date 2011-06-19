@@ -67,3 +67,7 @@ exports.parseDate = function(range) {
     }
     return range;
 }
+
+exports.today = function() {
+    return Date.today().toString('yyyy-MM-dd');
+}

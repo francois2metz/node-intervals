@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-var dateFormat = require('dateformat')
+var utils = require('../utils')
   , argv = require('optimist').boolean(['billable', 'b'])
-                              .default('date', dateFormat(new Date(), 'yyyy-mm-dd'))
+                              .default('date', utils.today())
                               .default('hours', 8)
                               .default('description', '')
                               .argv
   , futures = require('futures')
   , config = require('../config')
   , intervals = require('../intervals')
-  , utils = require('../utils')
 ;
 
 /**

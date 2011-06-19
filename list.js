@@ -1,11 +1,11 @@
 var intervals = require('./intervals')
-  , dateFormat = require('dateformat')
   , Table = require('cli-table')
+  , utils = require('./utils')
 ;
 
 module.exports = function(conf, opts) {
-    var end = opts.end || dateFormat(new Date(), 'yyyy-mm-dd');
-    var start = opts.start || dateFormat(new Date(), 'yyyy-mm-dd');
+    var end = opts.end || utils.today();
+    var start = opts.start || utils.today();
     console.log("Show timesheet from %s to %s", start, end);
     var client = intervals.createClient(conf.token);
     client.me(function(err, res) {
