@@ -20,6 +20,8 @@ You can also clone the repository and install dependencies with npm:
 * node-optimist
 * yaml
 * futures
+* base64
+* cli-table
 
 ## Command line usage
 
@@ -46,11 +48,15 @@ Please submit features request :).
 
 ## Changelog
 
+* **0.1.1**
+
+  Remove dependency to dateformat.
+
 * **0.1.0**
 
   Date with a range. Like 2011-06-17..2011-06-14.
 
-  List only user times with intervals ls.
+  List only user times with intervals ls (thanks [nono](https://github.com/nono/)).
 
 * **0.0.10**
 
