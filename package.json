@@ -13,7 +13,9 @@
                 }
 , "author": "François de Metz <francois@2metz.fr>"
 , "contributors" :
-  [ "Arnaud Berthomier" ]
+  [ "Arnaud Berthomier"
+   , "Bruno Michel"
+]
 , "licenses": [{ "type": "AGPL"}]
 , "dependencies": {
     "spore": ">= 0.1.3",
