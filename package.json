@@ -18,11 +18,10 @@
 ]
 , "licenses": [{ "type": "AGPL"}]
 , "dependencies": {
-    "spore": ">= 0.1.3",
+    "spore": ">= 0.1.5",
     "optimist" : "",
     "yaml" : "",
     "futures" : "",
-    "base64": "",
     "cli-table": ""
 }
 , "devDependencies" : { "ronn" : "",
