@@ -57,7 +57,26 @@
         "add_time": {
             "path": "/time/",
             "method": "POST",
-            "expected_status": [201]
+            "expected_status": [201],
+            "required_payload": true
+        },
+        "start_timer": {
+            "path": "/timer/",
+            "method": "POST",
+            "expected_status": [201],
+            "required_payload": true
+        },
+        "get_timer": {
+            "path": "/timer/:id",
+            "method": "GET",
+            "expected_status": [200],
+            "required_params": ["id"]
+        },
+        "delete_timer": {
+            "path": "/timer/:id",
+            "method": "DELETE",
+            "expected_status": [200],
+            "required_params": ["id"]
         }
     }
 }

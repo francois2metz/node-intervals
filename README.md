@@ -47,6 +47,12 @@ Please submit features request :).
 
 ## Changelog
 
+* **0.1.2** (not yet released)
+
+  Add start-timer, get-timer and delete-timer methods.
+
+  Remove dependency to base64.
+
 * **0.1.1**
 
   Remove dependency to dateformat.

@@ -113,9 +113,6 @@ function loadProject(conf, argv) {
     }
 }
 
-if (argv._.length > 1) {
-    return require('../help')();
-}
 if (argv._.length == 0) {
     argv._.push('add-time');
 }
@@ -158,6 +155,10 @@ if (argv.version || cmd == 'version' || argv.v) {
 } else if (cmd == 'ls') {
     askForToken(function(conf) {
         require('../list')(conf, argv);
+    });
+} else if (cmd == 'start-timer' || cmd == 'get-timer' || cmd == 'delete-timer') {
+    askForToken(function(conf) {
+        require('../timer')(conf, argv);
     });
 } else {
     return require('../help')();
