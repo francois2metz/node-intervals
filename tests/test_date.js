@@ -23,6 +23,14 @@ vows.describe('Intervals config').addBatch({
                                                                          '2011-06-15',
                                                                          '2011-06-16']);
         },
+        'yesterday..': function() {
+            var yesterday = Date.today().add({days: -1}).toString('yyyy-MM-dd');
+            assert.deepEqual(utils.parseDate(yesterday + '..'), [yesterday, today()]);
+        },
+        '..tomorrow': function() {
+            var tomorrow = Date.today().add({days: 1}).toString('yyyy-MM-dd');
+            assert.deepEqual(utils.parseDate('..'+tomorrow), [today(), tomorrow]);
+        },
         'yesterday': function() {
             assert.deepEqual(utils.parseDate('yesterday'), [Date.today().add({days: -1}).toString('yyyy-MM-dd')]);
         },

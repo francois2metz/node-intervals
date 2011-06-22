@@ -47,8 +47,8 @@ exports.readInput = function(callback) {
 exports.parseDate = function(range) {
     if (range.indexOf('..') !== -1) {
         var dates = range.split('..');
-        var date1 = Date.parseExact(dates[0], 'yyyy-MM-dd');
-        var date2 = Date.parseExact(dates[1], 'yyyy-MM-dd');
+        var date1 = Date.parseExact(dates[0], 'yyyy-MM-dd') || Date.today();
+        var date2 = Date.parseExact(dates[1], 'yyyy-MM-dd') || Date.today();
         if (Date.compare(date1, date2) == 1) {
             var tmp = date2;
             date2 = date1;
