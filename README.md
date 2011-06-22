@@ -43,7 +43,15 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Roadmap
 
-Please submit features request :).
+* Bash completions
+* Zsh completions
+* replace html entities from API to real characters
+* automatic detection billable projects
+* date range in intervals ls
+* real calendar in interval ls
+* improve date range with YYYY-MM-DD..
+
+Please submit features request or pull requests :).
 
 ## Changelog
 
