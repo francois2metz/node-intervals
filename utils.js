@@ -49,6 +49,8 @@ exports.parseDate = function(range) {
         var dates = range.split('..');
         var date1 = Date.parseExact(dates[0], 'yyyy-MM-dd');
         var date2 = Date.parseExact(dates[1], 'yyyy-MM-dd');
+        if (date1 === null) date1 = Date.today();
+        if (date2 === null) date2 = Date.today();
         if (Date.compare(date1, date2) == 1) {
             var tmp = date2;
             date2 = date1;
