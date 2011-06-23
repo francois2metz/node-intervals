@@ -59,6 +59,8 @@ Please submit features request or pull requests :).
 
   Add start-timer, get-timer and delete-timer methods.
 
+  Improve range. YYYY-MM-DD.. and ..YYYY-MM-DD now works (thanks [spk](https://github.com/spk/)).
+
   Remove dependency to base64.
 
 * **0.1.1**
@@ -138,7 +140,12 @@ Please submit features request or pull requests :).
 ## Authors
 
 * François de Metz
+
+## Contributors
+
 * Arnaud Berthomier
+* Bruno Michel
+* Laurent Arnoud
 
 ## License
 

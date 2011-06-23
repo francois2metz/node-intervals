@@ -15,6 +15,7 @@
 , "contributors" :
   [ "Arnaud Berthomier"
    , "Bruno Michel"
+   , "Laurent Arnoud"
 ]
 , "licenses": [{ "type": "AGPL"}]
 , "dependencies": {
