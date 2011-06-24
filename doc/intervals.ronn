@@ -9,6 +9,8 @@ intervals(1) -- manage your timesheets
 
 `intervals` ls [--start 2011-03-14] [--end 2011-03-14]
 
+`intervals` list-timers
+
 `intervals` start-timer
 
 `intervals` get-timer id

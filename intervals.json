@@ -60,6 +60,12 @@
             "expected_status": [201],
             "required_payload": true
         },
+        "get_timers": {
+            "path": "/timer/",
+            "method": "GET",
+            "expected_status": [200],
+            "optional_params": ["generaltimers", "gettimerinfo", "taskid", "personid", "projectid", "clientid", "sortfield", "sortdir", "offset", "limit"]
+        },
         "start_timer": {
             "path": "/timer/",
             "method": "POST",

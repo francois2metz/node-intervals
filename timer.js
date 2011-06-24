@@ -1,6 +1,23 @@
 var intervals = require('./intervals')
 ;
 
+function listTimers(client) {
+    console.log("List timers");
+    client.me(function(err, res) {
+        if (err) throw err;
+        client.get_timers({personid: res.body.personid,
+                           generaltimers: 't'}, function(err, res) {
+            if (err) throw err;
+            res.body.timer.forEach(function(timer) {
+                if (timer.isrunning == 'f')
+                    console.log('Timer %d not running', timer.id);
+                else
+                    console.log('Timer %d, Time elapsed: %s', timer.id, formatTime(timer.totaltime));
+            })
+        });
+    });
+}
+
 function startTimer(client) {
     console.log("Start timer");
     client.me(function(err, res) {
@@ -39,6 +56,9 @@ module.exports = function(conf, opts) {
     var client = intervals.createClient(conf.token);
 
     switch (opts._[0]) {
+    case "list-timers":
+        listTimers(client);
+        break;
     case "start-timer":
         startTimer(client);
         break;

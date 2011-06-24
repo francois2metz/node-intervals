@@ -156,7 +156,8 @@ if (argv.version || cmd == 'version' || argv.v) {
     askForToken(function(conf) {
         require('../list')(conf, argv);
     });
-} else if (cmd == 'start-timer' || cmd == 'get-timer' || cmd == 'delete-timer') {
+} else if (cmd == 'start-timer' || cmd == 'get-timer'
+           || cmd == 'delete-timer' || cmd == 'list-timers') {
     askForToken(function(conf) {
         require('../timer')(conf, argv);
     });

@@ -57,7 +57,7 @@ Please submit features request or pull requests :).
 
 * **0.1.2** (not yet released)
 
-  Add start-timer, get-timer and delete-timer methods.
+  Add list-timers, start-timer, get-timer and delete-timer methods.
 
   Improve range. YYYY-MM-DD.. and ..YYYY-MM-DD now works (thanks [spk](https://github.com/spk/)).
 
