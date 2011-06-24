@@ -9,6 +9,7 @@ module.exports = function(conf, opts) {
     console.log("Show timesheet from %s to %s", start, end);
     var client = intervals.createClient(conf.token);
     client.me(function(err, res) {
+        if (err) throw err;
         client.time({personid: res.body.personid,
                      datebegin: start,
                      dateend: end}, function(err, response) {

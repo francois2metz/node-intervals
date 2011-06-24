@@ -47,7 +47,6 @@ function deleteTimer(client, opts) {
     console.log("Deleting timer %d", id);
     client.delete_timer({id: id}, function(err, res) {
         if (err) throw err;
-        console.log(res);
         console.log("Timer deleted");
     });
 }
