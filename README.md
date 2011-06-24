@@ -1,6 +1,6 @@
 # Intervals
 
-NodeJS wrapper of [Intervals](http://www.myintervals.com) [API](http://www.myintervals.com/api/).
+NodeJS wrapper of [Intervals](http://www.myintervals.com/) [API](http://www.myintervals.com/api/).
 
 ## Install
 
@@ -24,7 +24,7 @@ You can also clone the repository and install dependencies with npm:
 
 ## Command line usage
 
-See doc/intervals.ronn.
+See doc/intervals.ronn or type `man intervals` after install.
 
 ## API
 
@@ -61,11 +61,11 @@ Please submit features request or pull requests :).
 
   Replace some basic html entities to utf8. Only casual latin characters are translated.
 
-  Remove dependency to base64.
+  Remove base64 dependency.
 
 * **0.1.1**
 
-  Remove dependency to dateformat.
+  Remove dateformat dependency.
 
 * **0.1.0**
 
