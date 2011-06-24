@@ -46,7 +46,6 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 * Bash completions
 * Zsh completions
 * automatic detection of billable projects
-* date range in intervals ls
 * real calendar in interval ls
 
 Please submit features request or pull requests :).
@@ -60,6 +59,8 @@ Please submit features request or pull requests :).
   Improve range. YYYY-MM-DD.. and ..YYYY-MM-DD now works (thanks [spk](https://github.com/spk/)).
 
   Replace some basic html entities to utf8. Only casual latin characters are translated.
+
+  Date range in intervals ls, `--start` and `--end` options are no longer available.
 
   Remove base64 dependency.
 

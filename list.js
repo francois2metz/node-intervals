@@ -4,8 +4,9 @@ var intervals = require('./intervals')
 ;
 
 module.exports = function(conf, opts) {
-    var end = opts.end || utils.today();
-    var start = opts.start || utils.today();
+    var dates = utils.parseDate(opts.date);
+    var start = dates[0];
+    var end = dates[dates.length - 1];
     console.log("Show timesheet from %s to %s", start, end);
     var client = intervals.createClient(conf.token);
     client.me(function(err, res) {
