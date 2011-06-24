@@ -45,7 +45,6 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 * Bash completions
 * Zsh completions
-* replace html entities from API to real characters
 * automatic detection of billable projects
 * date range in intervals ls
 * real calendar in interval ls
@@ -59,6 +58,8 @@ Please submit features request or pull requests :).
   Add list-timers, start-timer, get-timer and delete-timer methods.
 
   Improve range. YYYY-MM-DD.. and ..YYYY-MM-DD now works (thanks [spk](https://github.com/spk/)).
+
+  Replace some basic html entities to utf8. Only casual latin characters are translated.
 
   Remove dependency to base64.
 

@@ -50,6 +50,18 @@ function acceptMore() {
     };
 }
 
+/**
+ * Replace all html entities from api response to real utf8 characters
+ */
+function transformHtmlEntities() {
+    return function(method, request, next) {
+        next(function(response, next) {
+            response.body = utils.deHtmlEntities(response.body);
+            next();
+        })
+    };
+}
+
 var sporeDesc = exports.description = JSON.parse(require('fs').readFileSync(__dirname +'/intervals.json', 'utf8'));
 
 /**
@@ -60,6 +72,7 @@ var createClient = exports.createClient = function(token) {
     client.enable(spore.middlewares.basic(token, 'X'));
     client.enable(acceptMore());
     client.enable(spore.middlewares.json());
+    client.enable(transformHtmlEntities());
     client.enable(accept('application/json'));
     client.enable(contentType('application/json'));
     return client;

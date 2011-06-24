@@ -19,6 +19,9 @@ exports.exec = function exec (cmd, args, env, cb) {
         cwd: __dirname}).on("exit", cb);
 }
 
+/**
+ * Pipe result from cmd and args
+ */
 exports.pipe = function(cmd, args) {
     return spawn(cmd, args, {customFds: [-1,
                                          stdio.stdoutFD,
@@ -67,7 +70,27 @@ exports.parseDate = function(range) {
     }
     return range;
 }
-
+/**
+ * Return today as YYYY-MM-DD
+ */
 exports.today = function() {
     return Date.today().toString('yyyy-MM-dd');
+}
+
+exports.htmlEntities = [['&eacute;', 'é'],
+                        ['&egrave;', 'è'],
+                        ['&amp;', '&'],
+                        ['&ucirc;', 'û'],
+                        ['&agrave;', 'à']];
+
+/**
+ * Replace html entities to utf-8 characters
+ */
+exports.deHtmlEntities = function(input) {
+    exports.htmlEntities.forEach(function(props) {
+        var entity = props[0];
+        var utf8 = props[1];
+        input = input.replace(RegExp(entity, 'g'), utf8);
+    });
+    return input;
 }
