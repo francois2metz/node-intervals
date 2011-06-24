@@ -7,9 +7,7 @@ var utils = require('../utils')
 
 require('../date');
 
-function today() {
-    return Date.today().toString('yyyy-MM-dd')
-}
+var today = utils.today;
 
 vows.describe('Intervals config').addBatch({
     'can specify a range': {
