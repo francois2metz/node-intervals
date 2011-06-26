@@ -28,6 +28,12 @@
                                 "active", "billable", "personid",
                                 "offset", "limit"]
         },
+        "project_by_id": {
+            "path": "/project/:id",
+            "method": "GET",
+            "required_params": ["id"],
+            "expected_status": [200]
+        },
         "worktype": {
             "path": "/worktype/",
             "method": "GET",
