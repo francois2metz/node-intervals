@@ -20,9 +20,8 @@ function addTime(options, client) {
         var join = futures.join();
         join.add(dates.map(function(date) {
             var promise = futures.future();
-            var opts = {};
             // we must clone to prevent options.date override
-            for (var i in options) opts[i] = options[i];
+            var opts = utils.clone(options);
             opts.date = date;
             console.log('Add '+ opts.time + ' ' +
                         (opts.billable ? 'billable' : 'non billable') +
