@@ -51,7 +51,7 @@ Please submit features request or pull requests :).
 
 ## Changelog
 
-* **0.2.0** (not yet released)
+* **0.2.0**
 
   Add list-timers, start-timer, get-timer and delete-timer methods.
 
