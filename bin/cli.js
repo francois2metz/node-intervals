@@ -23,20 +23,21 @@ function addTime(options, client) {
             // we must clone to prevent options.date override
             var opts = utils.clone(options);
             opts.date = date;
-            console.log('Add '+ opts.time + ' ' +
-                        (opts.billable ? 'billable' : 'non billable') +
-                        ' hours for '+ opts.date);
+            var message = ('Save '+ opts.time + ' ' +
+                           (opts.billable ? 'billable' : 'non billable') +
+                           ' hours for '+ opts.date);
             intervals.addTime(project, opts, client, function (err, res) {
-                if (err) throw err;
-                if (res.status != 201) throw res.body;
-                console.log('Success! Time added.');
+                var msg = 'OK';
+                if (err) { msg = 'ERROR'; console.error(err); }
+                else if (res.status != 201) { msg = 'ERROR'; console.error('Unexpected status '+ res.status +' for addTime method'); };
+                console.log(message + ' ' + msg);
                 promise.deliver();
             });
             return promise;
         }));
         join.when(function() {
             next(project);
-        })
+        });
     };
 }
 
@@ -131,7 +132,7 @@ if (argv.version || cmd == 'version' || argv.v) {
                 console.log(config.toYaml(project.human, '  '));
             });
         } else {
-            console.log('no projects found. Register a new one with intervals add-time');
+            console.log('No projects found. Register a new one with intervals add-time.');
         }
     });
 } else if (cmd == 'add-time') {
