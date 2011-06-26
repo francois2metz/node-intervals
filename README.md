@@ -52,7 +52,7 @@ Please submit features request or pull requests :).
 
 ## Changelog
 
-* **0.1.2** (not yet released)
+* **0.2.0** (not yet released)
 
   Add list-timers, start-timer, get-timer and delete-timer methods.
 
@@ -61,6 +61,8 @@ Please submit features request or pull requests :).
   Replace some basic html entities to utf8. Only casual latin characters are translated.
 
   Date range in intervals ls, `--start` and `--end` options are no longer available.
+
+  Add bash completion.
 
   Remove base64 dependency.
 

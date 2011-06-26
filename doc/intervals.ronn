@@ -17,9 +17,11 @@ intervals(1) -- manage your timesheets
 
 `intervals` delete-timer id
 
-`intervals` --version
+`intervals` completion
 
-`intervals` --help
+`intervals` [version|--version]
+
+`intervals` [help|--help]
 
 ## OPTIONS
 
@@ -62,6 +64,12 @@ Requests are not to exceed:
     $ intervals --date 2011-04-07..2011-04-15
     $ intervals --date yesterday
     $ intervals --hours 4
+
+## Completion
+
+Intervals include a basic completion script for bash.
+
+    intervals completion >> ~/.bashrc
 
 ## ENVIRONMENT VARIABLES
 

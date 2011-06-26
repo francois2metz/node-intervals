@@ -112,7 +112,9 @@ function loadProject(conf, argv) {
         }
     }
 }
-
+/**
+ * Add time is the default action
+ */
 if (argv._.length == 0) {
     argv._.push('add-time');
 }
@@ -160,6 +162,10 @@ if (argv.version || cmd == 'version' || argv.v) {
            || cmd == 'delete-timer' || cmd == 'list-timers') {
     askForToken(function(conf) {
         require('../timer')(conf, argv);
+    });
+} else if (cmd == 'completion') {
+    askForToken(function(conf) {
+        require('../completion')(conf);
     });
 } else {
     return require('../help')();

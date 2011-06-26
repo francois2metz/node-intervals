@@ -28,10 +28,13 @@
 \fBintervals\fR delete\-timer id
 .
 .P
-\fBintervals\fR \-\-version
+\fBintervals\fR completion
 .
 .P
-\fBintervals\fR \-\-help
+\fBintervals\fR [version|\-\-version]
+.
+.P
+\fBintervals\fR [help|\-\-help]
 .
 .SH "OPTIONS"
 .
@@ -90,6 +93,18 @@ $ intervals \-\-date yesterday
 $ intervals \-\-hours 4
 .
 .fi
+.
+.SH "Completion"
+Intervals include a basic completion script for bash\.
+.
+.IP "" 4
+.
+.nf
+intervals completion >> ~/\.bashrc
+.
+.fi
+.
+.IP "" 0
 .
 .SH "ENVIRONMENT VARIABLES"
 .
