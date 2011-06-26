@@ -12,13 +12,15 @@
     "methods": {
         "me": {
             "path": "/me",
-            "method": "GET"
+            "method": "GET",
+            "expected_status": [200]
         },
         "client": {
             "path": "/client/",
             "method": "GET",
             "optional_params": ["active", "search", "projectsonly",
-                                "offset", "limit"]
+                                "offset", "limit"],
+            "expected_status": [200]
         },
         "project": {
             "path": "/project/",
@@ -26,7 +28,8 @@
             "optional_params": ["clientid", "managerid", "name",
                                 "datestart", "dateend", "search",
                                 "active", "billable", "personid",
-                                "offset", "limit"]
+                                "offset", "limit"],
+            "expected_status": [200]
         },
         "project_by_id": {
             "path": "/project/:id",
@@ -37,20 +40,23 @@
         "worktype": {
             "path": "/worktype/",
             "method": "GET",
-            "optional_params": ["active", "offset", "limit"]
+            "optional_params": ["active", "offset", "limit"],
+            "expected_status": [200]
         },
         "project_worktype": {
             "path": "/projectworktype/",
             "method": "GET",
             "required_params": ["projectid"],
-            "optional_params": ["active", "personid", "offset", "limit"]
+            "optional_params": ["active", "personid", "offset", "limit"],
+            "expected_status": [200]
         },
         "project_module": {
             "path": "/projectmodule/",
             "method": "GET",
             "required_params": ["projectid"],
             "optional_params": ["active", "personid",
-                                "offset", "limit"]
+                                "offset", "limit"],
+            "expected_status": [200]
         },
         "time": {
             "path": "/time/",
@@ -58,7 +64,8 @@
             "optional_params": ["activeonly", "moduleid", "taskid", "worktypeid",
                                 "personid", "clientid", "projectid", "milestoneid",
                                 "date", "datebegin", "dateend", "billable", "sortfield",
-                                "sortdir", "offset", "limit"]
+                                "sortdir", "offset", "limit"],
+            "expected_status": [200]
         },
         "add_time": {
             "path": "/time/",

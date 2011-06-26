@@ -43,7 +43,6 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 
 ## Roadmap
 
-* Bash completions
 * Zsh completions
 * automatic detection of billable projects
 * real calendar in interval ls
@@ -63,6 +62,8 @@ Please submit features request or pull requests :).
   Date range in intervals ls, `--start` and `--end` options are no longer available.
 
   Add bash completion.
+
+  Add some methods in the description file.
 
   Remove base64 dependency.
 
