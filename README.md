@@ -24,7 +24,7 @@ You can also clone the repository and install dependencies with npm:
 
 ## Command line usage
 
-See doc/intervals.ronn or type `man intervals` after install.
+See *doc/intervals.ronn* or type `man intervals` after install.
 
 ## API
 
@@ -50,6 +50,10 @@ The config file is written in ~/.config/intervals or in $XDG_CONFIG_HOME/interva
 Please submit features request or pull requests :).
 
 ## Changelog
+
+* **0.2.1** (not yet released)
+
+  Improve range. You can use something like `intervals add-time --date "last week..yesterday"`.
 
 * **0.2.0**
 

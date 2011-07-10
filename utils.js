@@ -50,8 +50,8 @@ exports.readInput = function(callback) {
 exports.parseDate = function(range) {
     if (range.indexOf('..') !== -1) {
         var dates = range.split('..');
-        var date1 = Date.parseExact(dates[0], 'yyyy-MM-dd') || Date.today();
-        var date2 = Date.parseExact(dates[1], 'yyyy-MM-dd') || Date.today();
+        var date1 = Date.parse(dates[0]) || Date.today();
+        var date2 = Date.parse(dates[1]) || Date.today();
         range = exports.range(date1, date2);
     } else if (Array.isArray(range)) {
         range = range.map(function(d) {
