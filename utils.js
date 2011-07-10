@@ -52,15 +52,7 @@ exports.parseDate = function(range) {
         var dates = range.split('..');
         var date1 = Date.parseExact(dates[0], 'yyyy-MM-dd') || Date.today();
         var date2 = Date.parseExact(dates[1], 'yyyy-MM-dd') || Date.today();
-        if (Date.compare(date1, date2) == 1) {
-            var tmp = date2;
-            date2 = date1;
-            date1 = tmp;
-        }
-        var range = [];
-        do {
-            range.push(date1.toString('yyyy-MM-dd'));
-        } while(Date.compare(date1.add({ days: 1}), date2) < 1);
+        range = exports.range(date1, date2);
     } else if (Array.isArray(range)) {
         range = range.map(function(d) {
             return Date.parse(d).toString('yyyy-MM-dd');
@@ -68,6 +60,21 @@ exports.parseDate = function(range) {
     } else {
         range = [Date.parse(range).toString('yyyy-MM-dd')];
     }
+    return range;
+}
+/**
+ * Create a range of date
+ */
+exports.range = function(date1, date2) {
+    if (Date.compare(date1, date2) == 1) {
+        var tmp = date2;
+        date2 = date1;
+        date1 = tmp;
+    }
+    var range = [];
+    do {
+        range.push(date1.toString('yyyy-MM-dd'));
+    } while(Date.compare(date1.add({ days: 1}), date2) < 1);
     return range;
 }
 /**
