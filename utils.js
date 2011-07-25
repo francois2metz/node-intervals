@@ -88,7 +88,10 @@ exports.htmlEntities = [['&eacute;', 'é'],
                         ['&egrave;', 'è'],
                         ['&amp;', '&'],
                         ['&ucirc;', 'û'],
-                        ['&agrave;', 'à']];
+                        ['&agrave;', 'à'],
+                        ['&rsquo;', '\''],
+                        ['&lt;', '<'],
+                        ['&gt;', '>']];
 
 /**
  * Replace html entities to utf-8 characters
