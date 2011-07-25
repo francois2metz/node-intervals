@@ -70,11 +70,11 @@ var sporeDesc = exports.description = JSON.parse(require('fs').readFileSync(__di
 var createClient = exports.createClient = function(token) {
     var client = spore.createClient(sporeDesc);
     client.enable(spore.middlewares.basic(token, 'X'));
-    client.enable(acceptMore());
     client.enable(spore.middlewares.json());
     client.enable(transformHtmlEntities());
     client.enable(accept('application/json'));
     client.enable(contentType('application/json'));
+    client.enable(acceptMore());
     return client;
 }
 
