@@ -13,7 +13,8 @@ module.exports = function(conf, opts) {
         if (err) throw err;
         client.time({personid: res.body.personid,
                      datebegin: start,
-                     dateend: end}, function(err, response) {
+                     dateend: end,
+                     limit: 10}, function(err, response) {
                          showTime(response.body);
                      });
     });
