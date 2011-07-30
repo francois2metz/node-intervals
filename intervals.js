@@ -40,7 +40,7 @@ function acceptMore() {
                     if (err) throw err;
                     response.status = resp2.status;
                     response.headers = resp2.headers;
-                    response.body = JSON.parse(resp2.body);
+                    response.body = JSON.parse(utils.deHtmlEntities(resp2.body));
                     next();
                 });
             } else {
