@@ -107,7 +107,7 @@ function loadProject(conf, argv) {
             if (conf.projects[i].name == argv.project) {
                 var project = conf.projects[i];
                 delete project.name;
-                next(project);
+                return next(project);
             }
         }
         console.error('The project '+ argv.project +" doesn't exist.");
