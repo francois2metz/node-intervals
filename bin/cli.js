@@ -110,6 +110,7 @@ function loadProject(conf, argv) {
                 next(project);
             }
         }
+        console.error('The project '+ argv.project +" doesn't exist.");
     }
 }
 /**
