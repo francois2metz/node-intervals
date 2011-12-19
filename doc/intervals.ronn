@@ -9,6 +9,8 @@ intervals(1) -- manage your timesheets
 
 `intervals` ls [--date 2011-03-14..2011-03-17]
 
+`intervals` ls-projects [--active]
+
 `intervals` list-timers
 
 `intervals` start-timer
@@ -63,6 +65,7 @@ Requests are not to exceed:
     $ intervals --date 2011-04-07 --billable --hours 4 --description "Debuging node-intervals"
     $ intervals --date 2011-04-07..2011-04-15
     $ intervals --date yesterday
+    $ intervals --date "last week.."
     $ intervals --project "intervals"
 
 ## Completion

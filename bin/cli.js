@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 var utils = require('../utils')
-  , argv = require('optimist').boolean(['billable', 'b'])
-                              .default('date', utils.today())
-                              .default('hours', 8)
-                              .default('description', '')
-                              .argv
+  , argv = require('optimist').argv
   , futures = require('futures')
   , config = require('../config')
   , intervals = require('../intervals')
@@ -138,6 +134,10 @@ if (argv.version || cmd == 'version' || argv.v) {
     });
 } else if (cmd == 'add-time') {
     askForToken(function(conf) {
+        var argv = require('optimist').boolean(['billable', 'b'])
+                                      .default('date', utils.today())
+                                      .default('hours', 8)
+                                      .default('description', '').argv;
         var options  = optionsFrom(argv),
             sequence = null;
 
@@ -158,6 +158,10 @@ if (argv.version || cmd == 'version' || argv.v) {
 } else if (cmd == 'ls') {
     askForToken(function(conf) {
         require('../list')(conf, argv);
+    });
+} else if (cmd == 'ls-projects') {
+    askForToken(function(conf) {
+        require('../listprojects')(conf, argv);
     });
 } else if (cmd == 'start-timer' || cmd == 'get-timer'
            || cmd == 'delete-timer' || cmd == 'list-timers') {
